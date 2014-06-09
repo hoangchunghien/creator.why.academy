@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/styles/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/vendor/magicsuggest-min.css">
+    <link rel="stylesheet" href="/styles/vendor/jquery.dataTables.css">
+
+    <script src="/js/vendor/require.js"></script>
+    <script src="/js/vendor/jquery.min.js"></script>
+    <script src="/js/vendor/bootstrap.min.js"></script>
+    <script src="/js/vendor/angular.min.js"></script>
+    <script src="/js/vendor/angular-cookies.min.js"></script>
+    <script src="/js/vendor/jquery.dataTables.js"></script>
+    <script src="/js/vendor/magicsuggest-min.js"></script>
+
+    <script src="/js/app/commons.js"></script>
+    <script src="/js/app/controllers/user-course-ctrl.js"></script>
+
+</head>
+<body>
+
+<% include ../partials/nav-bar.html %>
+
+<div ng-controller="UserCourseCtrl" ng-init="init()" >
+    <div class="container bs-docs-container">
+        <table id="coursesTable" class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Picture</th>
+                <th>Name</th>
+                <th>Content type</th>
+                <th>Description</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-repeat="course in courses" valign="middle" jquery-datatable="coursesTable">
+                <td ng-bind="course.id"></td>
+                <td><image ng-src="{{course.picture_url}}" height="75" width="100"/></td>
+                <td><a href="/courses/{{course.id}}" ng-bind="course.name"></a></td>
+                <td ng-bind="course.content_type"></td>
+                <td ng-bind="course.description"></td>
+                <td ng-bind="course.status"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

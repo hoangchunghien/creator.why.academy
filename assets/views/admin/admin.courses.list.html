@@ -1,0 +1,65 @@
+<div class="container bs-docs-container">
+    <div class="breadcrumb">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="{{ course.picture_url}}" height="200" width="200">
+            </div>
+            <div class="col-md-9">
+                <table class="table table-condensed">
+                    <tbody>
+                    <tr><td>ID</td><td>{{ course.id}}</td></tr>
+                    <tr><td>Name</td><td>{{ course.name}}</td></tr>
+                    <tr><td>Type</td><td>{{ course.content_type}}</td></tr>
+                    <tr><td>Description</td><td>{{ course.description}}</td></tr>
+                    <tr><td>Changed items</td><td>{{ changedLessons.length}}</td></tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="button" class="btn btn-default" ng-click="saveChanged()">
+                                <span class="glyphicon glyphicon-floppy-disk"> SaveChanged</span>
+                            </button>
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="" id="savedNotifyMsg">
+    </div>
+    <table id="lessonsDatatable" class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Picture</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Content</th>
+            <th>Difficulty level</th>
+            <th>Created at</th>
+            <th>Sound</th>
+            <th>Change status to</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="lesson in course.lessons" valign="middle">
+
+            <td>{{ lesson.id}}</td>
+            <td><image src="{{ lesson.picture_url}}" height="100" width="125"/></td>
+            <td>{{ lesson.name}}</td>
+            <td>{{ lesson.type}}</td>
+            <td></td>
+            <td align="center">{{ lesson.difficulty_level}}</td>
+            <td ng-bind="lesson.created_at"></td>
+            <td><button type="button" class="btn btn-default" ng-click="playAudio(lesson.audio_url)"><span class="glyphicon glyphicon-volume-up"></span></button></td>
+
+            <td>
+                <select class="form-control" ng-model="lessonStatus[lesson.name]" ng-options="s.text for s in status" ng-change="changeStatus(lesson)"></select>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

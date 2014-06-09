@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10 box-container">
+        <div class="box border green">
+            <div class="box-title">
+                Course detail
+            </div>
+
+            <div class="box-body">
+                <div class="clearfix">
+                    <div class="pull-left col-md-3">
+                        <img ng-src="{{ course.picture_url}}" height="150">
+                    </div>
+                    <div class="pull-left col-md-9">
+                        <table class="table table-condensed">
+                            <tbody>
+                            <tr></tr>
+                            <tr>
+                                <td>ID</td>
+                                <td ng-bind="course.id"></td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td ng-bind="course.name"></td>
+                            </tr>
+                            <tr>
+                                <td>Type</td>
+                                <td ng-bind="course.content_type"></td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td ng-bind="course.description"></td>
+                            </tr>
+                            <tr>
+                                <td>Author</td>
+                                <td ng-bind="course.user.name"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="toolbox bottom">
+                <div class="clearfix">
+                    <div class="pull-right">
+                        <a type="button" class="btn btn-default" ng-href="/courses/{{course.id}}/contents/add">
+                            <span class="glyphicon glyphicon-plus"> Add contents</span>
+                        </a>
+                        <a class="btn btn-default" role="button" ng-href="/courses/{{course.id}}/edit">
+                            <span class="glyphicon glyphicon-pencil"> Edit Course</span>
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div ui-view="courses"></div>
+<div ui-view="lessons"></div>
