@@ -9,7 +9,7 @@ angular.module('creator.lessons.controller', [
     'creator.lessons.service',
     'creator.pictures.service'
 ])
-    .service('lessonUtils', function ($http, audioSrv, picturesSrv, jqueryDatatable) {
+    .service('lessonUtils', function ($http, audioSrv, picturesSrv) {
 
         var self = this;
 
