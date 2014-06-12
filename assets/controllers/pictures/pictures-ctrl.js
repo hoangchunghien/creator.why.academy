@@ -22,7 +22,7 @@ angular.module('creator.pictures.directive', [
 
                 $("#uploadingBtn").click(function () {
                     var file = document.getElementById('fPicture').files[0];
-                    picturesSrv.upload(file, file.fileName,
+                    picturesSrv.upload(file, file.name.substring(0, file.name.lastIndexOf('.')),
                         function (progress) {
                             $('#uploadingBtn').button('loading');
                         },

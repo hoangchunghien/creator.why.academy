@@ -19,7 +19,7 @@ angular.module('creator.pictures.service', [
             var fd = new FormData();
             fd.append('file', file);
             fd.append('name', name);
-            // console.log(fd);
+            console.log("upload name: " + name);
             var xhr = new XMLHttpRequest();
             xhr.open('POST', API_SERVER_URL + '/photos', true);
             xhr.upload.onprogress = function(e) {
