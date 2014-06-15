@@ -50,6 +50,14 @@ angular.module('creator.utils.service', [
                     if (a[i].id == id) return a[i];
                 }
                 return null;
+            },
+
+            remove: function(array, id) {
+                for (var i = 0; i < array.length; i++) {
+                    if (array[i].id == id) {
+                        array.splice(i, 1);
+                    }
+                }
             }
         };
     });

@@ -83,5 +83,31 @@ angular.module('creator.lessons.service', [
             xhr.send(params);
         };
 
+        factory.delete = function(id) {
+
+            var onProgressHandler = arguments[1];
+            var onSuccessHandler = arguments[2];
+            var xhr = new XMLHttpRequest();
+            var url = path + "/lessons/" + id;
+            var params = {};
+            xhr.open('DELETE', url, true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.setRequestHeader('Access-Token', userSrv.getToken().value);
+            xhr.onprogress = function(progress) {
+                console.log(progress);
+                if (onProgressHandler)
+                    onProgressHandler(progress);
+            };
+            xhr.onload = function() {
+                if (this.status === 200) {
+                    var resp = JSON.parse(this.response);
+                    console.log(resp);
+                    if (onSuccessHandler)
+                        onSuccessHandler(resp);
+                }
+            };
+            xhr.send(params);
+        };
+
         return factory;
     }]);

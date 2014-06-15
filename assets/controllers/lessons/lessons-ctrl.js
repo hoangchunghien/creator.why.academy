@@ -389,7 +389,7 @@ angular.module('creator.lessons.controller', [
         }
     })
 
-    .controller('lessons.list.ctrl', function ($scope, audioSrv, lessons) {
+    .controller('lessons.list.ctrl', function ($scope, audioSrv, lessonsSrv, utils, lessons) {
         console.log("lesson.list.ctrl loading...");
         $scope.lessons = lessons;
 
@@ -410,6 +410,22 @@ angular.module('creator.lessons.controller', [
 
         $scope.playAudio = function (audioUrl) {
             audioSrv.playAudio(audioUrl);
+        };
+
+        $scope.deleteLesson = function (id) {
+            var accept = confirm("Are you sure to delete lesson with id=" + id + "?");
+            if (accept) {
+                lessonsSrv.delete(id,
+                    function(progress) {
+
+                    },
+                    function(resp) {
+                        utils.remove($scope.lessons, id);
+                        $scope.$apply();
+                        alert("Success");
+                    }
+                );
+            }
         };
 
 

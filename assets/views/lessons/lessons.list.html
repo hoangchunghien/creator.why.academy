@@ -41,12 +41,17 @@
                                 <button type="button" class="btn btn-default"
                                         ng-click="playAudio(lesson.audio_url)"><span
                                         class="glyphicon glyphicon-volume-up"></span></button>
+
                             </td>
                             <td align="center" ng-bind="lesson.difficulty_level"></td>
                             <td ng-bind="lesson.created_at"></td>
                             <td>
                                 <a ng-href="/lessons/{{lesson.id}}/edit" type="button" class="btn btn-default">
                                     <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                                <a ng-class="{'disabled': lesson.status === 10}"
+                                   ng-click="deleteLesson(lesson.id)" type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-remove"></span>
                                 </a>
                             </td>
                             <td ng-bind="lesson.status_name" ng-style="getStatusStyle(lesson.status)"></td>

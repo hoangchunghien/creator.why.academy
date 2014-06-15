@@ -51,6 +51,7 @@ app.controller('LessonCtrl', function($scope, $http, userSrv) {
                 url: API_SERVER_URL + "/lessons",
                 params: {'lessons': JSON.stringify($scope.changedLessons)},
                 headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Access-Token': accessToken}
+
             }).success(function(data, status) {
                 $scope.init($scope.id);
             });
