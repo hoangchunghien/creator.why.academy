@@ -4,12 +4,13 @@
 
 angular.module('creator.lessons.controller', [
     'creator.utils.service',
+    'creator.phonetic.service',
     'creator.users.service',
     'creator.audio.service',
     'creator.lessons.service',
     'creator.pictures.service'
 ])
-    .service('lessonUtils', function ($http, audioSrv, picturesSrv) {
+    .service('lessonUtils', function ($http, audioSrv, picturesSrv, phoneticSrv) {
 
         var self = this;
 
@@ -109,14 +110,34 @@ angular.module('creator.lessons.controller', [
             }
         };
 
+        var removeExistInArray = function (arr) {
+            var result = [];
+            for (var k in arr) {
+
+                var found = false;
+                for (var l in result) {
+                    if (result[l] === arr[k]) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    result[result.length] = arr[k];
+                }
+            }
+            return result;
+        };
+
         var retrievePhonetic = function(scope) {
-            var url = "http://tudienhinh.com/api/" + scope.lesson.name;
-            $http({
-                method: 'GET',
-                url: url
-            }).success(function(data, status) {
-                if (data['phonetic']) {
-                    scope.lesson.content['phonetics'] = [{'text': data['phonetic']}, {'text': ''}];
+            phoneticSrv.findAll(scope.lesson.name, function(phonetics) {
+                if (phonetics && phonetics.length > 0) {
+                    phonetics = removeExistInArray(phonetics);
+                    scope.lesson.content.phonetics = [];
+                    for(var key in phonetics) {
+                        var i = scope.lesson.content.phonetics.length;
+                        scope.lesson.content.phonetics[i] = {}; 
+                        scope.lesson.content.phonetics[i].text = phonetics[key];
+                    }
                     scope.$apply();
                 }
             });
