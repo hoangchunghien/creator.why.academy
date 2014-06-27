@@ -14,13 +14,13 @@ angular.module('creator.phonetic.service', [
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
     })
     .factory('phoneticSrv', ['$http', 'stringSrv', function ($http, stringSrv) {
-        var dictApi = "http://en.wiktionary.org/w/api.php?action=parse&format=json&prop=text&callback=?&page=";
+        var dictApi = "http://www.oxforddictionaries.com/definition/english/";
         var factory = {};
 
         factory.findAll = function (word, successCallback) {
-        	$.getJSON(dictApi + word,  function(json) {
-        		var text = json.parse.text['*'];
-            	var phoneticPt = /<span\sclass="IPA"\slang="">\/(.*?)\/<\/span>/g;
+        	$.get(dictApi + word,  function(data) {
+                var text = data.responseText.trim();
+            	var phoneticPt = /<div class="headpron"><a.*>.*<\/a>\n<p>\/(.*)<\/p>/mg;
             	var phonetics = stringSrv.findAll(phoneticPt, text);
 
                 successCallback(phonetics);

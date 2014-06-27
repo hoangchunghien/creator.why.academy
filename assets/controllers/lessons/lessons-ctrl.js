@@ -382,6 +382,10 @@ angular.module('creator.lessons.controller', [
                 isValidated(scope);
             };
 
+            scope.retrievePhonetic = function() {
+                retrievePhonetic(scope);
+            };
+
 
             var typingTimer;
             var doneTypingInterval = 900;
