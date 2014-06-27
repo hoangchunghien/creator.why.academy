@@ -23,7 +23,11 @@ angular.module('creator.courses', [
                     url: '',
                     resolve: {
                         courses: function (coursesSrv) {
-                            return coursesSrv.findAll({query:{status:'10'},fields:{user:'id,name'}});
+                            return coursesSrv.findAll({
+                                        query:{status:'10'},
+                                        fields:{user:'id,name',parent:'id'},
+                                        include:'parent'
+                                    });
                         }
                     },
                     views: {

@@ -164,9 +164,14 @@ angular.module('creator.courses.controller', [
 
     .controller('creator.courses.list.ctrl', function($scope, $state, courses) {
         console.log("creator.courses.list.ctrl loading...");
-        $scope.courses = courses;
+        $scope.courses = [];
+        for (var i in courses) {
+            if (!courses[i].parent) {
+                $scope.courses[$scope.courses.length] = courses[i];
+            }
+        }
+        // $scope.courses = courses;
     })
-
 
     .controller('creator.courses.edit.ctrl', function($scope, $state, courseUtils, coursesSrv, course) {
         $scope.course = course;

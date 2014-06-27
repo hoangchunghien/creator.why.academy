@@ -37,6 +37,9 @@ angular.module('creator.courses.service', [
                         params['fields[user]'] = opts.fields.user;
                     }
                 }
+                if (opts.include) {
+                    params['include'] = opts.include;
+                }
             }
             var courses = $http({
                 method: 'GET',
