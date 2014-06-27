@@ -29,7 +29,8 @@ angular.module('creator.users', [
                             return coursesSrv.findAll(
                                 {
                                     query:{user:{id:$stateParams.userId}},
-                                    fields:{user:'id,name'}
+                                    fields:{user:'id,name',parent:'id'},
+                                    include:'parent'
                                 }
                             );
                         }
