@@ -476,6 +476,7 @@ angular.module('creator.lessons.controller', [
     })
 
     .controller('lessons.detail.edit.ctrl', function ($scope, $state, lessonsSrv, lessonUtils, lesson) {
+        $scope.action = "EDIT LESSON";
         $scope.lesson = lesson;
         lessonUtils.initializeScope($scope);
         lessonUtils.validateLessonScope($scope);
@@ -505,6 +506,7 @@ angular.module('creator.lessons.controller', [
     })
 
     .controller('lessons.new.ctrl', function ($scope, $state, lessonsSrv, lessonUtils, lesson) {
+        $scope.action = "NEW LESSON";
         $scope.lesson = lesson;
         lessonUtils.initializeScope($scope);
 
