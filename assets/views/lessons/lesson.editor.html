@@ -1,168 +1,194 @@
-<div>
-    <div class="col-md-2"></div>
-    <div class="col-md-8 box-container">
-        <div class="box border">
-            <div class="box-title">
-                <h4>LESSON EDITOR</h4>
-            </div>
-            <div class="box-body">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group" ng-show="validated.lesson.picture_url">
-                        <div class="col-sm-2"></div>
-                        <div class="col-sm-10">
-                            <img ng-src="{{lesson.picture_url}}" height="100"/>
-                        </div>
+<div class="col-md-6" style="border-right: thick solid grey;">
+<div class="box-container">
+    <div class="box">
+        <div class="box-title">
+            <h4>LESSON EDITOR</h4>
+        </div>
+        <div class="box-body">
+            <form class="form-horizontal" role="form">
+<!--                 <div class="form-group" ng-show="validated.lesson.picture_url">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-10">
+                        <img ng-src="{{lesson.picture_url}}" height="100"/>
                     </div>
+                </div> -->
 
-                    <div class="form-group" id="frmLessonName"
-                         ng-class="{'has-error': invalid.lesson.name, 'has-success': validated.lesson.name}">
-                        <label for="name" class="col-sm-2 control-label">Name</label>
+                <div class="form-group" id="frmLessonName"
+                ng-class="{'has-error': invalid.lesson.name, 'has-success': validated.lesson.name}">
+                <label for="name" class="col-sm-2 control-label">Name</label>
 
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="txtLessonName"
-                                   placeholder="Name of lesson" ng-model="lesson.name" ng-keyup="handleTypingName()"
-                                    ng-change="changeName()" ng-blur="validateName()">
-                        </div>
-                    </div>
-                    <div class="form-group" id="frmLessonType" ng-class="{'has-error': invalid.lesson.type}">
-                        <label for="type" class="col-sm-2 control-label">Type</label>
-
-                        <div class="col-sm-10">
-                            <select class="form-control" ng-model="lesson.slType"
-                                    ng-options="t.name for t in types"></select>
-                        </div>
-                    </div>
-                    <div class="form-group" id="frmLessonLanguage" ng-class="{'has-error': invalid.lesson.language}">
-                        <label for="type" class="col-sm-2 control-label">Language</label>
-
-                        <div class="col-sm-10">
-                            <select class="form-control" ng-model="lesson.slLanguage"
-                                    ng-options="l.name for l in languages"></select>
-                        </div>
-                    </div>
-                    <div class="form-group" id="frmDifficultyLevel"
-                         ng-class="{'has-error': invalid.lesson.difficulty_level, 'has-success': validated.lesson.difficulty_level}">
-                        <label for="difficultyLevel" class="col-sm-2 control-label">Difficulty level</label>
-
-                        <div class="col-sm-10">
-                            <input type="number" min="0" class="form-control" id="txtLessonDifficultyLevel"
-                                   ng-model="lesson.difficulty_level" ng-change="changeDifficultyLevel()" ng-blur="validateDifficultyLevel()">
-                        </div>
-                    </div>
-                    <div class="form-group" id="frmLessonSoundUrl"
-                         ng-class="{'has-error': invalid.lesson.audio_url, 'has-success': validated.lesson.audio_url}">
-                        <label for="audioUrl" class="col-sm-2 control-label">Audio url</label>
-
-                        <div class="col-sm-10">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="txtLessonSoundUrl"
-                                       ng-model="lesson.audio_url"
-                                       ng-change="changeAudioUrl()"
-                                       ng-blur="validateAudioUrl()"/>
-                                <span class="input-group-btn form-control-feedback">
-                                    <button id="btnPlaySoundForEditor"
-                                            class="btn btn-default  form-control-feedback" type="button"
-                                            ng-click="playAudio(lesson.audio_url)">
-                                        <span id="iconPlaySoundForEditor"
-                                              class="glyphicon glyphicon-volume-up"></span>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group" id="frmLessonPictureUrl"
-                         ng-class="{'has-error': invalid.lesson.picture_url, 'has-success': validated.lesson.picture_url}">
-                        <label for="pictureUrl" class="col-sm-2 control-label">Picture url</label>
-
-                        <div class="col-sm-10">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="txtLessonPictureUrl"
-                                       ng-model="lesson.picture_url"
-                                       ng-change="changePictureUrl()"
-                                       ng-blur="validatePictureUrl()"/>
-                                <span class="input-group-btn form-control-feedback">
-                                    <button id="btnPictureUploader" class="btn btn-default  form-control-feedback"
-                                            type="button">
-                                        <span>Upload</span>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseContent">
-                                    Content
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseContent" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <div class="form-group" id="frmLessonContentText">
-                                    <label for="contentText" class="col-sm-2 control-label">Text</label>
-
-                                    <div class="col-sm-10">
-                                        <textarea class="form-control" rows="3"
-                                                  ng-model="lesson.content['text']"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group" id="frmLessonContentExamples">
-                                    <label for="examples" class="col-sm-2 control-label">Examples</label>
-
-                                    <div class="col-sm-10" id="grpExamplesInput">
-                                        <div class="input-group" ng-repeat="e in lesson.content['examples']">
-                                            <input type="text" class="form-control" ng-model="e['text']"
-                                                   ng-keyup="reloadExamples(e)"/>
-                                            <span class="input-group-btn form-control-feedback">
-                                                <button class="btn btn-default  form-control-feedback"
-                                                        type="button">Audio
-                                                </button>
-                                                <button class="btn btn-default" type="button"
-                                                        ng-click="removeExample(e)"><span
-                                                        class="glyphicon glyphicon-remove"></span>
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group" id="frmLessonContentPhonetics">
-                                    <label for="examples" class="col-sm-2 control-label">Phonetics</label>
-
-                                    <div class="col-sm-8" id="grpPhoneticsInput">
-                                        <div class="input-group" ng-repeat="p in lesson.content['phonetics']">
-                                            <input type="text" class="form-control" ng-model="p['text']"
-                                                   ng-keyup="reloadPhonetics(p)"/>
-                                            <span class="input-group-btn form-control-feedback">
-                                                <button class="btn btn-default" type="button"
-                                                        ng-click="removePhonetic(p)"><span
-                                                        class="glyphicon glyphicon-remove"></span>
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2 ">
-                                        <a class="btn" ng-click="retrievePhonetic()">Auto fill</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="toolbox bottom">
-                <div></div>
-                <div align="right">
-                    <button type="button" class="btn btn-primary" id="btnEditorSaveChange"
-                            data-loading-text="Saving..."
-                            data-complete-text="Saved..."
-                            ng-click="saveChange()" ng-class="{'disabled': !validated.lesson.all}">Save changes
-                    </button>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="txtLessonName"
+                    placeholder="Name of lesson" ng-model="lesson.name" ng-keyup="handleTypingName()"
+                    ng-change="changeName()" ng-blur="validateName()">
                 </div>
+            </div>
+            <div class="form-group" id="frmLessonType" ng-class="{'has-error': invalid.lesson.type}">
+                <label for="type" class="col-sm-2 control-label">Type</label>
+
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="lesson.slType"
+                    ng-options="t.name for t in types"></select>
+                </div>
+            </div>
+            <div class="form-group" id="frmLessonLanguage" ng-class="{'has-error': invalid.lesson.language}">
+                <label for="type" class="col-sm-2 control-label">Language</label>
+
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="lesson.slLanguage"
+                    ng-options="l.name for l in languages"></select>
+                </div>
+            </div>
+            <div class="form-group" id="frmDifficultyLevel"
+            ng-class="{'has-error': invalid.lesson.difficulty_level, 'has-success': validated.lesson.difficulty_level}">
+            <label for="difficultyLevel" class="col-sm-2 control-label">Difficulty level</label>
+
+            <div class="col-sm-10">
+                <input type="number" min="0" class="form-control" id="txtLessonDifficultyLevel"
+                ng-model="lesson.difficulty_level" ng-change="changeDifficultyLevel()" ng-blur="validateDifficultyLevel()">
+            </div>
+        </div>
+        <div class="form-group" id="frmLessonSoundUrl"
+        ng-class="{'has-error': invalid.lesson.audio_url, 'has-success': validated.lesson.audio_url}">
+        <label for="audioUrl" class="col-sm-2 control-label">Audio url</label>
+
+        <div class="col-sm-10">
+            <!-- <div class="input-group"> -->
+                <input type="text" class="form-control" id="txtLessonSoundUrl"
+                ng-model="lesson.audio_url"
+                ng-change="changeAudioUrl()"
+                ng-blur="validateAudioUrl()"/>
+<!--                 <span class="input-group-btn form-control-feedback">
+                    <button id="btnPlaySoundForEditor"
+                    class="btn btn-default  form-control-feedback" type="button"
+                    ng-click="playAudio(lesson.audio_url)">
+                    <span id="iconPlaySoundForEditor"
+                    class="glyphicon glyphicon-volume-up"></span>
+                </button>
+            </span> -->
+        <!-- </div> -->
+    </div>
+</div>
+<div class="form-group" id="frmLessonPictureUrl"
+ng-class="{'has-error': invalid.lesson.picture_url, 'has-success': validated.lesson.picture_url}">
+<label for="pictureUrl" class="col-sm-2 control-label">Picture url</label>
+
+<div class="col-sm-10">
+    <div class="input-group">
+        <input type="text" class="form-control" id="txtLessonPictureUrl"
+        ng-model="lesson.picture_url"
+        ng-change="changePictureUrl()"
+        ng-blur="validatePictureUrl()"/>
+        <span class="input-group-btn form-control-feedback">
+            <button id="btnPictureUploader" class="btn btn-default  form-control-feedback"
+            type="button">
+            <span>Upload</span>
+        </button>
+    </span>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseContent">
+                Content
+            </a>
+        </h4>
+    </div>
+    <div id="collapseContent" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <div class="form-group" id="frmLessonContentText">
+                <label for="contentText" class="col-sm-2 control-label">Text</label>
+
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="3"
+                    ng-model="lesson.content['text']"></textarea>
+                </div>
+            </div>
+            <div class="form-group" id="frmLessonContentExamples">
+                <label for="examples" class="col-sm-2 control-label">Examples</label>
+
+                <div class="col-sm-10" id="grpExamplesInput">
+                    <div class="input-group" ng-repeat="e in lesson.content['examples']">
+                        <input type="text" class="form-control" ng-model="e['text']"
+                        ng-keyup="reloadExamples(e)"/>
+                        <span class="input-group-btn form-control-feedback">
+                            <button class="btn btn-default  form-control-feedback"
+                            type="button">Audio
+                        </button>
+                        <button class="btn btn-default" type="button"
+                        ng-click="removeExample(e)"><span
+                        class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group" id="frmLessonContentPhonetics">
+        <label for="examples" class="col-sm-2 control-label">Phonetics</label>
+
+        <div class="col-sm-8" id="grpPhoneticsInput">
+            <div class="input-group" ng-repeat="p in lesson.content['phonetics']">
+                <input type="text" class="form-control" ng-model="p['text']"
+                ng-keyup="reloadPhonetics(p)"/>
+                <span class="input-group-btn form-control-feedback">
+                    <button class="btn btn-default" type="button"
+                    ng-click="removePhonetic(p)"><span
+                    class="glyphicon glyphicon-remove"></span>
+                </button>
+            </span>
+        </div>
+    </div>
+    <div class="col-sm-2 ">
+        <a class="btn" ng-click="retrievePhonetic()">Auto fill</a>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</form>
+</div>
+<div class="toolbox bottom">
+    <div></div>
+    <div align="right">
+        <button type="button" class="btn btn-primary" id="btnEditorSaveChange"
+        data-loading-text="Saving..."
+        data-complete-text="Saved..."
+        ng-click="saveChange()" ng-class="{'disabled': !validated.lesson.all}">Save changes
+    </button>
+</div>
+</div>
+</div>
+</div>
+
+<div picture-uploader return-element-id="txtLessonPictureUrl" call-element-id="btnPictureUploader"></div>
+</div>
+
+<div class="col-md-6">
+<div class="box-container">
+    <div class="box">
+        <div class="box-title">
+            <h5>PREVIEW</h5>
+        </div>
+        <div class="box-body">
+            <h1 ng-bind="lesson.name"></h1>
+            <br>
+            <div>
+                <img ng-src="{{lesson.picture_url}}"/>
+            </div>
+            <br>
+            <div class="h5">/<span ng-bind="lesson.content.phonetics[0].text"></span>/ 
+                <a class="btn" ng-click="playAudio(lesson.audio_url)"><span class="glyphicon glyphicon-volume-up"></span></a>
+            </div>
+            <br>
+            <div class="h4" ng-bind="lesson.content.text"></div>
+            <br>
+            <div class="h5">
+                <div ng-repeat="exam in lesson.content['examples']" ><div ng-bind="exam.text"></div><br></div>
             </div>
         </div>
     </div>
 </div>
-
-<div picture-uploader return-element-id="txtLessonPictureUrl" call-element-id="btnPictureUploader"></div>
+</div>

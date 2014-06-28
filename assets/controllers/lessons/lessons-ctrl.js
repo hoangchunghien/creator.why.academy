@@ -471,6 +471,10 @@ angular.module('creator.lessons.controller', [
         initPhonetics();
     })
 
+    .controller('lessons.detail.ctrl', function($scope, lesson) {
+        $scope.lesson = lesson;
+    })
+
     .controller('lessons.detail.edit.ctrl', function ($scope, $state, lessonsSrv, lessonUtils, lesson) {
         $scope.lesson = lesson;
         lessonUtils.initializeScope($scope);
