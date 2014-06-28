@@ -2,7 +2,8 @@
  * Created by Hien on 5/30/2014.
  */
 
-angular.module('creator', [
+ angular.module('creator', [
+    'creator.main',
     'creator.api.service',
     'creator.utils.service',
     'creator.users',
@@ -14,10 +15,10 @@ angular.module('creator', [
     'creator.courses.service',
     'creator.pictures.directive',
     'ui.router'
-])
-    .run(
+    ])
+ .run(
     [          '$rootScope', '$state', '$stateParams',
-        function ($rootScope, $state, $stateParams) {
+    function ($rootScope, $state, $stateParams) {
 
             // It's very handy to add references to $state and $stateParams to the $rootScope
             // so that you can access them from any scope within your applications.For example,
@@ -26,12 +27,12 @@ angular.module('creator', [
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
         }
+        ]
+        )
+ .config([
+    '$stateProvider', '$urlRouterProvider', '$locationProvider',
+    function ($stateProvider, $urlRouterProvider, $locationProvider) {
+        $locationProvider.html5Mode(true);
+    }
     ]
-)
-    .config([
-        '$stateProvider', '$urlRouterProvider', '$locationProvider',
-        function ($stateProvider, $urlRouterProvider, $locationProvider) {
-            $locationProvider.html5Mode(true);
-        }
-    ]
-);
+    );
