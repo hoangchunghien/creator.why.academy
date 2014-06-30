@@ -49,7 +49,7 @@ var loadEnv = function() {
         api_url = 'http://localhost:8080';
     }
     else {
-        creator_url = 'http://creator.why.academy';
+        creator_url = 'http://author.why.academy';
         api_url = 'http://api.why.academy';
     }
 };
