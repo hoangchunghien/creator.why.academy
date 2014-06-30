@@ -40,19 +40,22 @@ angular.module('creator.courses', [
 
                 .state('courses-detail', {
                     parent: 'courses',
+                    abstract: true,
                     url: '/{id:[0-9]*}',
-                    templateUrl: '/views/courses/courses.detail.html',
-                    resolve: {
+                    templateUrl: '/views/courses/courses.detail.html'
+                    ,resolve: {
                         course: function ($stateParams, coursesSrv) {
-                            return coursesSrv.findById($stateParams.id, {include_contents:true, fields: {user: "id,name"}});
+                            return coursesSrv.findById($stateParams.id, 
+                                    {include_contents:true, fields: {user: "id,name"}, sort: {lessons: "-created_at"}}
+                                );
                         }
-                    },
-                    controller: 'creator.courses.detail.ctrl'
+                    }
+                    // ,controller: 'creator.courses.detail.ctrl'
                 })
 
                 .state('courses-detail-contents', {
                     parent: 'courses-detail',
-                    url: '/contents',
+                    url: '',
                     resolve: {
                         courses: function (course) {
                             console.log("courses-detail-contents resolving data...");
@@ -70,11 +73,15 @@ angular.module('creator.courses', [
                         }
                     },
                     views: {
-                        'courses@courses-detail': {
+                        'detail@courses-detail': {
+                            templateUrl: '/views/courses/course.html',
+                            controller: 'creator.courses.detail.ctrl'
+                        }
+                        ,'courses@courses-detail': {
                             templateUrl: '/views/courses/courses.list.html',
                             controller: 'creator.courses.list.ctrl'
-                        },
-                        'lessons@courses-detail': {
+                        }
+                        ,'lessons@courses-detail': {
                             templateUrl: '/views/lessons/lessons.list.html',
                             controller: 'lessons.list.ctrl'
                         }

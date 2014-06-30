@@ -78,6 +78,11 @@ angular.module('creator.courses.service', [
                         params['fields[user]'] = opts.fields.user;
                     }
                 }
+                if (opts.sort) {
+                    if (opts.sort.lessons) {
+                        params['sort[lessons]'] = opts.sort.lessons;
+                    }
+                }
             }
             var courses = $http({
                 method: 'GET',

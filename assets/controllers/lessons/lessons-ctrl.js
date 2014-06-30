@@ -420,8 +420,8 @@ angular.module('creator.lessons.controller', [
 
         var initPhonetics = function () {
             console.log('Initializing phonetics...');
-            for (var i = 0; i < $scope.course.lessons.length; i++) {
-                initPhonetic($scope.course.lessons[i]);
+            for (var i = 0; i < lessons.length; i++) {
+                initPhonetic(lessons[i]);
             }
         };
 
