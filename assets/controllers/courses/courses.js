@@ -57,9 +57,15 @@ angular.module('creator.courses', [
                         courses: function (course) {
                             console.log("courses-detail-contents resolving data...");
                             console.log(course);
+                            if (course.content_type == 'course') {
+                                course.numOfItems = course.courses.length;
+                            }
                             return course.courses;
                         },
                         lessons: function(course) {
+                            if (course.content_type == 'lesson') {
+                                course.numOfItems = course.lessons.length;
+                            }
                             return course.lessons;
                         }
                     },

@@ -127,6 +127,7 @@ module.exports = {
                 var statics = [
                     'api',
                     'js',
+                    'css',
                     'styles',
                     'images',
                     'vendor',

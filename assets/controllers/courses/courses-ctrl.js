@@ -158,7 +158,8 @@ angular.module('creator.courses.controller', [
 
     })
 
-    .controller('creator.courses.detail.ctrl', function($scope, $state, course) {
+    .controller('creator.courses.detail.ctrl', function(Seo, $scope, $state, course) {
+        Seo.title = course.name;
         $scope.course = course;
     })
 

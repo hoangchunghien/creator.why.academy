@@ -1,5 +1,5 @@
 angular.module('creator.main', [
-	'ui.router'
+ 'ui.router'
 	])
 .config(
 	[
@@ -8,7 +8,10 @@ angular.module('creator.main', [
 		$stateProvider
 		.state('main', {
 			url: '/',
-			templateUrl: '/views/main/main.html'
+			templateUrl: '/views/main/main.html',
+			controller: 'creator.main.ctrl'
 		})
 	}
-	]);
+	]).controller('creator.main.ctrl', function(Seo){
+		Seo.title = "Author for Apo";
+	});

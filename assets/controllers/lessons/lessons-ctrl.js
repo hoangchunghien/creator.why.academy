@@ -475,7 +475,8 @@ angular.module('creator.lessons.controller', [
         $scope.lesson = lesson;
     })
 
-    .controller('lessons.detail.edit.ctrl', function ($scope, $state, lessonsSrv, lessonUtils, lesson) {
+    .controller('lessons.detail.edit.ctrl', function (Seo, $scope, $state, lessonsSrv, lessonUtils, lesson) {
+        Seo.title = "Edit " + lesson.name;
         $scope.action = "EDIT LESSON";
         $scope.lesson = lesson;
         lessonUtils.initializeScope($scope);
@@ -505,7 +506,8 @@ angular.module('creator.lessons.controller', [
 
     })
 
-    .controller('lessons.new.ctrl', function ($scope, $state, lessonsSrv, lessonUtils, lesson) {
+    .controller('lessons.new.ctrl', function (Seo, $scope, $state, lessonsSrv, lessonUtils, lesson) {
+        Seo.title = "New lesson";
         $scope.action = "NEW LESSON";
         $scope.lesson = lesson;
         lessonUtils.initializeScope($scope);
