@@ -14,16 +14,16 @@ angular.module('creator.phonetic.service', [
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
     })
     .factory('phoneticSrv', ['$http', 'stringSrv', function ($http, stringSrv) {
-        var dictApi = "http://www.oxforddictionaries.com/definition/english/";
+        var dictApi = "http://www.oxfordlearnersdictionaries.com/definition/english/";
         var factory = {};
 
         factory.findAll = function (word, successCallback) {
         	$.get(dictApi + word,  function(data) {
-                var text = data.responseText.trim();
-            	var phoneticPt = /<div class="headpron"><a.*>.*<\/a>\n<p>\/(.*)<\/p>/mg;
-            	var phonetics = stringSrv.findAll(phoneticPt, text);
+                var doc = new DOMParser().parseFromString(data.responseText,'text/xml');
+            	var pron = doc.getElementsByClassName('ei-g')[0];
+                var phonetic = pron.getElementsByClassName('y')[0].innerHTML;
 
-                successCallback(phonetics);
+                successCallback([phonetic]);
         	});
             
         };
