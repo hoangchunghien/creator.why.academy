@@ -67,6 +67,9 @@ angular.module('creator.courses.controller', [
         };
 
         this.initializeScope = function(scope) {
+            scope.disabled = {};
+            scope.disabled.course = {};
+
             initTrackingData(scope);
             initValidateData(scope);
             initLoadingData(scope);

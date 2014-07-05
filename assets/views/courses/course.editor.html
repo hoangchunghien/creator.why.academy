@@ -34,12 +34,12 @@
                         </div>
                     </div>
 
-                    <div ng-class="{'disabled':disabled.course.contentType}" class="form-group" id="frmCourseType" >
+                    <div class="form-group" id="frmCourseType" >
                         <label for="type" class="col-sm-2 control-label">Content type</label>
 
                         <div class="col-sm-10">
                             <select id="slCourseType" class="form-control" ng-model="course.slContentType"
-                                    ng-options="t.name for t in contentTypes" ng-change="changeContentType()" ></select>
+                                    ng-options="t.name for t in contentTypes" ng-change="changeContentType()" ng-disabled="disabled.course.contentType" ></select>
                         </div>
                     </div>
 
