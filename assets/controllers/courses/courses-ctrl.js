@@ -178,22 +178,22 @@ angular.module('creator.courses.controller', [
         $scope.course = course;
         courseUtils.initializeScope($scope);
         courseUtils.isDataValid($scope);
-
+        $scope.disabled.course.contentType = true;
         $scope.save = function() {
             if (!courseUtils.isDataValid($scope)) return;
 
             var updateItems = [];
             var hasChanged = false;
             if ($scope.previous.course.name !== $scope.course.name) {
-                updateItems.push({opt:'replace', path:'/courses/0/name', value:$scope.course.name});
+                updateItems.push({op:'replace', path:'/courses/0/name', value:$scope.course.name});
                 hasChanged = true;
             }
             if ($scope.previous.course.picture_url !== $scope.course.picture_url) {
-                updateItems.push({opt:'replace', path:'/courses/0/picture_url', value:$scope.course.picture_url});
+                updateItems.push({op:'replace', path:'/courses/0/picture_url', value:$scope.course.picture_url});
                 hasChanged = true;
             }
             if ($scope.previous.course.description !== $scope.course.description) {
-                updateItems.push({opt:'replace', path:'/courses/0/description', value:$scope.course.description});
+                updateItems.push({op:'replace', path:'/courses/0/description', value:$scope.course.description});
                 hasChanged = true;
             }
             console.log("Update items: " + JSON.stringify(updateItems));
