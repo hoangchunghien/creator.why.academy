@@ -1,0 +1,8 @@
+<div class="course-navigator">
+    <div class="h4">
+        <span ng-repeat="ancestor in ancestors">
+            <a ng-href="/courses/{{ancestor.id}}" ng-bind="ancestor.name" class="course-navigator-link"></a>
+            <span> > </span>
+        </span>
+    </div>
+</div>

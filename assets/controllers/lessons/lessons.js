@@ -5,6 +5,8 @@
  angular.module('creator.lessons', [
     'ui.router',
     'creator.lessons.controller',
+    'creator.navigation.ancestors.controller',
+    'creator.courses.service',
     'creator.lessons.service'
     ])
  .config(
@@ -24,16 +26,34 @@
                 lesson: function($stateParams, lessonsSrv) {
                     console.log(lessonsSrv);
                     return lessonsSrv.findById($stateParams.id);
+                },
+                course: function(lesson, coursesSrv) {
+                    return coursesSrv.findById(lesson.course_id);
+                },
+                ancestors: function (lesson, coursesSrv) {
+                    return coursesSrv.findAncestors(lesson.course_id);
                 }
             },
-            templateUrl: '/views/lessons/lessons.detail.html'
+            views: {
+                '@lessons': {
+                    templateUrl: '/views/lessons/lessons.detail.html'
+                },
+                'navigator@lessons': {
+                    templateUrl: '/views/navigation/ancestors-navigator.html',
+                    controller: 'creator.navigation.ancestors.ctrl'
+                }
+            }
+
         })
         .state('lessons-detail-edit', {
             parent: 'lessons-detail',
             url: '/edit',
-            templateUrl: '/views/lessons/lesson.editor.html',
-            controller: 'lessons.detail.edit.ctrl'
-
+            views: {
+                '@lessons': {
+                    templateUrl: '/views/lessons/lesson.editor.html',
+                    controller: 'lessons.detail.edit.ctrl'
+                }
+            }
         })
     }
     ]);

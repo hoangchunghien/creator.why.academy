@@ -6,7 +6,8 @@ angular.module('creator.courses', [
     'ui.router',
     'creator.courses.service',
     'creator.courses.controller',
-    'creator.lessons.controller'
+    'creator.lessons.controller',
+    'creator.navigation.ancestors.controller'
 ])
     .config(
     [
@@ -42,12 +43,23 @@ angular.module('creator.courses', [
                     parent: 'courses',
                     abstract: true,
                     url: '/{id:[0-9]*}',
-                    templateUrl: '/views/courses/courses.detail.html'
+                    views: {
+                        '@courses': {
+                            templateUrl: '/views/courses/courses.detail.html'
+                        },
+                        'navigator@courses': {
+                            templateUrl: '/views/navigation/ancestors-navigator.html',
+                            controller: 'creator.navigation.ancestors.ctrl'
+                        }
+                    }
                     ,resolve: {
                         course: function ($stateParams, coursesSrv) {
                             return coursesSrv.findById($stateParams.id, 
                                     {include_contents:true, fields: {user: "id,name"}, sort: {lessons: "-created_at"}}
                                 );
+                        },
+                        ancestors: function ($stateParams, coursesSrv) {
+                            return coursesSrv.findAncestors($stateParams.id);
                         }
                     }
                     // ,controller: 'creator.courses.detail.ctrl'

@@ -148,5 +148,25 @@ angular.module('creator.courses.service', [
             xhr.send(JSON.stringify(items));
         };
 
+        factory.findAncestors = function(id) {
+            var ancestors = $http({
+                method: 'GET',
+                url: path + "/v2/courses/" + id + "/ancestors",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                    'Access-Token': userSrv.getToken().value
+                }
+            }).then(function(resp) {
+                console.log(JSON.stringify(resp.data.ancestors));
+                return resp.data.ancestors;
+            }, function(data) {
+                console.log("Error: " + JSON.stringify(data));
+                return {};
+            });
+            return ancestors.then(function() {
+                return ancestors;
+            });
+        };
+
         return factory;
     }]);

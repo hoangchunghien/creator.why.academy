@@ -2,3 +2,10 @@
 	margin-top: 20px;
 	margin-bottom: 20px; 
 }
+.course-navigator {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.course-navigator-link {
+    text-decoration: underline
+}

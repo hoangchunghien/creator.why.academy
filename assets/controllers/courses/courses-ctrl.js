@@ -235,7 +235,7 @@ angular.module('creator.courses.controller', [
             console.log(JSON.stringify(course));
             coursesSrv.create(course,
                 function (progress) {
-                    console.log("Saving...")
+                    console.log("Saving...");
                     $('#btnSave').button('loading');
                 },
                 function (response) {
