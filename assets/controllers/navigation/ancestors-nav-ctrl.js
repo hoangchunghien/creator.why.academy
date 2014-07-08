@@ -3,17 +3,9 @@
  */
 angular.module('creator.navigation.ancestors.controller', [
     'ui.router'
+    ,'creator.courses.service'
 ])
-    .controller('creator.navigation.ancestors.ctrl', function($scope, $http, ancestors, course) {
-        $scope.ancestors = [];
-        var i = 0;
-        if (ancestors.id) {
-            $scope.ancestors[i++] = {id: ancestors.id, name: ancestors.name};
-            var parent = ancestors.parent;
-            while (parent) {
-                $scope.ancestors[i++] = {id: ancestors.id, name: ancestors.name};
-                parent = parent.parent;
-            }
-        }
-        $scope.ancestors[i++] = course;
+    .controller('creator.navigation.ancestors.ctrl', function($scope, $http, ancestors, course, coursesSrv) {
+        $scope.ancestors = coursesSrv.ancestorsToArray(ancestors);
+        $scope.ancestors.push(course);
     });

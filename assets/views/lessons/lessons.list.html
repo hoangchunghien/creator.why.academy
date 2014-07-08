@@ -18,6 +18,7 @@
                             <th>Created at</th>
                             <th>Command</th>
                             <th>Status</th>
+                            <th>Order</th>
                         </tr>
                         </thead>
 
@@ -56,6 +57,7 @@
                                 </a>
                             </td>
                             <td ng-bind="lesson.status_name" ng-style="getStatusStyle(lesson.status)"></td>
+                            <td ng-bind="lesson.order_number">NA</td>
                         </tr>
                         </tbody>
                     </table>

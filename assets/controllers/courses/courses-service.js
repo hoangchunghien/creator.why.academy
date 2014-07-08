@@ -168,5 +168,43 @@ angular.module('creator.courses.service', [
             });
         };
 
+        factory.ancestorsToArray = function(ancestors) {
+            var i = 0;
+            var temp = [];
+            if (ancestors.id) {
+                temp[i++] = {id: ancestors.id, name: ancestors.name};
+                var parent = ancestors.parent;
+                while (parent) {
+                    temp[i++] = {id: parent.id, name: parent.name};
+                    parent = parent.parent;
+                }
+            }
+            var results = [];
+            for (var i = temp.length - 1; i >= 0; i--) {
+                results.push(temp[i]);
+            }
+            return results;
+        };
+
+        factory.findDescendants = function(id) {
+            var descendants = $http({
+                method: 'GET',
+                url: path + "/v2/courses/" + id + "/descendants",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                    'Access-Token': userSrv.getToken().value
+                }
+            }).then(function(resp) {
+                console.log(JSON.stringify(resp.data.descendants));
+                return resp.data.descendants;
+            }, function(error) {
+                console.log("Error: " + JSON.stringify(error));
+                return [];
+            });
+            return descendants.then(function() {
+                return descendants;
+            });
+        };
+
         return factory;
     }]);
