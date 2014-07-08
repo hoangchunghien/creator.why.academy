@@ -60,6 +60,26 @@ angular.module('creator.courses', [
                         },
                         ancestors: function ($stateParams, coursesSrv) {
                             return coursesSrv.findAncestors($stateParams.id);
+                        },
+                        root: function(ancestors, coursesSrv) {
+                            var ancArr = coursesSrv.ancestorsToArray(ancestors);
+                            var root;
+                            if (ancArr.length > 0) {
+                                root = ancArr[0];
+                            }
+                            return root;
+                        },
+                        descendants: function(root, coursesSrv) {
+//                            var ancArr = coursesSrv.ancestorsToArray(ancestors);
+//                            if (ancArr.length > 0) {
+//                                var root = ancArr[0];
+                            if (root) {
+                                return coursesSrv.findDescendants(root.id);
+                            }
+                            return [];
+                        },
+                        showCurrentCourseInNavigator: function() {
+                            return false;
                         }
                     }
                     // ,controller: 'creator.courses.detail.ctrl'

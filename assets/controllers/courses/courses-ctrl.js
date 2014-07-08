@@ -69,6 +69,8 @@ angular.module('creator.courses.controller', [
         this.initializeScope = function(scope) {
             scope.disabled = {};
             scope.disabled.course = {};
+            scope.show = {};
+            scope.show.course = {};
 
             initTrackingData(scope);
             initValidateData(scope);
@@ -177,16 +179,47 @@ angular.module('creator.courses.controller', [
         // $scope.courses = courses;
     })
 
-    .controller('creator.courses.edit.ctrl', function($scope, $state, courseUtils, coursesSrv, course) {
+    .controller('creator.courses.edit.ctrl', function($scope, $state, courseUtils, coursesSrv, course, descendants, root) {
         $scope.course = course;
         courseUtils.initializeScope($scope);
         courseUtils.isDataValid($scope);
         $scope.disabled.course.contentType = true;
+        $scope.show.course.slParent = false;
+        $scope.show.course.enableSlParent = true;
+        /**
+         * Initialize select for change subcourse parent
+        **/
+        var descendantsArr = coursesSrv.descendantsToArray(descendants);
+        if (root) {
+            descendantsArr.push({id: root.id, name: root.name, content_type: root.content_type});
+            console.log(root);
+        }
+        $scope.courseParents = [];
+        for (var i in descendantsArr) {
+            var descendant = descendantsArr[i];
+            if (descendant.content_type == "course" && descendant.id !== course.id) {
+                $scope.courseParents.push(descendantsArr[i]);
+                if ($scope.course.parent.id == descendant.id) {
+                    $scope.course.slParent = descendantsArr[i];
+                    $scope.previous.course.slParent = descendantsArr[i];
+                }
+            }
+        }
+        $scope.showChangeParent = function() {
+            $scope.show.course.slParent = true;
+            $scope.show.course.enableSlParent = false;
+        }
+
+        console.log(descendantsArr);
         $scope.save = function() {
             if (!courseUtils.isDataValid($scope)) return;
 
             var updateItems = [];
             var hasChanged = false;
+            if ($scope.previous.course.slParent !== $scope.course.slParent) {
+                updateItems.push({op:'replace', path:'/courses/0/links/parent', value: $scope.course.slParent.id});
+                hasChanged = true;
+            }
             if ($scope.previous.course.name !== $scope.course.name) {
                 updateItems.push({op:'replace', path:'/courses/0/name', value:$scope.course.name});
                 hasChanged = true;

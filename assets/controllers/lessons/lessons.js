@@ -32,6 +32,9 @@
                 },
                 ancestors: function (lesson, coursesSrv) {
                     return coursesSrv.findAncestors(lesson.course_id);
+                },
+                showCurrentCourseInNavigator: function() {
+                    return true;
                 }
             },
             views: {

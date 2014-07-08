@@ -16,11 +16,15 @@
                     </div>
 
                     <div class="form-group" ng-show="course.parent">
-                        <label for="parent" class="col-sm-2 control-label">Parent</label>
-
-                        <div class="col-sm-10">
-                            <p class="form-control-static"><a ng-href="/courses/{{parent.id}}" ng-bind="course.parent.id"></a>
-                            </p>
+                        <div ng-show="show.course.enableSlParent">
+                            <div class="col-sm-2"></div><div class="col-sm-10"><a class="btn" ng-click="showChangeParent()">Change parent</a></div>
+                        </div>
+                        <label for="parent" class="col-sm-2 control-label" ng-show="show.course.slParent">Parent</label>
+                        <div class="col-sm-10" ng-show="show.course.slParent">
+                            <!--<p class="form-control-static"><a ng-href="/courses/{{parent.id}}" ng-bind="course.parent.id"></a>-->
+                            <!--</p>-->
+                            <select id="slParent" class="form-control" ng-model="course.slParent"
+                                    ng-options="p.name for p in courseParents"></select>
                         </div>
                     </div>
 

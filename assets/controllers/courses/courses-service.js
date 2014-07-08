@@ -172,10 +172,10 @@ angular.module('creator.courses.service', [
             var i = 0;
             var temp = [];
             if (ancestors.id) {
-                temp[i++] = {id: ancestors.id, name: ancestors.name};
+                temp[i++] = {id: ancestors.id, name: ancestors.name, content_type: ancestors.content_type};
                 var parent = ancestors.parent;
                 while (parent) {
-                    temp[i++] = {id: parent.id, name: parent.name};
+                    temp[i++] = {id: parent.id, name: parent.name, content_type: parent.content_type};
                     parent = parent.parent;
                 }
             }
@@ -204,6 +204,27 @@ angular.module('creator.courses.service', [
             return descendants.then(function() {
                 return descendants;
             });
+        };
+
+        var treeCourseToArray = function(course) {
+            var arr = [];
+            arr.push({id: course.id, name: course.name, content_type: course.content_type});
+            var courses = course.courses;
+            if (courses) {
+                for (var i in courses) {
+                    arr = arr.concat(treeCourseToArray(courses[i]));
+                }
+            }
+            return arr;
+        };
+
+        factory.descendantsToArray = function(descendants) {
+            var results = [];
+            for (var i in descendants) {
+                console.log(descendants);
+                results = results.concat(treeCourseToArray(descendants[i]));
+            }
+            return results;
         };
 
         return factory;
