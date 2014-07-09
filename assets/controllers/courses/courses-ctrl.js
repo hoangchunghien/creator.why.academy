@@ -262,8 +262,8 @@ angular.module('creator.courses.controller', [
             course.content_type = $scope.course.slContentType.value;
             course.description = $scope.course.description;
             course.picture_url = $scope.course.picture_url;
-            if ($scope.parent) {
-                course.parent = {id: $scope.parent.id};
+            if ($scope.course.parent) {
+                course.parent = {id: $scope.course.parent.id};
             }
             console.log(JSON.stringify(course));
             coursesSrv.create(course,
