@@ -53,7 +53,7 @@ angular.module('creator.lessons.controller', [
             }
         };
 
-        var loadLessonDifficulty = function(scope) {
+        var loadLessonDifficulty = function (scope) {
             if (!scope.lesson) return;
 
             if (!scope.lesson.difficulty_level) {
@@ -79,24 +79,24 @@ angular.module('creator.lessons.controller', [
             }
         };
 
-        var initValidateData = function(scope) {
+        var initValidateData = function (scope) {
             scope.invalid = {};
             scope.invalid.lesson = {};
             scope.valid = {};
             scope.valid.lesson = {};
         };
 
-        var initLoadingData = function(scope) {
+        var initLoadingData = function (scope) {
             scope.loading = {};
             scope.loading.lesson = {};
         };
 
-        var initValidatedFields = function(scope) {
+        var initValidatedFields = function (scope) {
             scope.validated = {};
             scope.validated.lesson = {};
         };
 
-        var refreshSoundUrl = function(scope) {
+        var refreshSoundUrl = function (scope) {
             if (!scope.lesson.id) {
                 if (scope.lesson.name) {
                     scope.lesson.audio_url = "https://ssl.gstatic.com/dictionary/static/sounds/de/0/" + scope.lesson.name + ".mp3";
@@ -128,14 +128,14 @@ angular.module('creator.lessons.controller', [
             return result;
         };
 
-        var retrievePhonetic = function(scope) {
-            phoneticSrv.findAll(scope.lesson.name, function(phonetics) {
+        var retrievePhonetic = function (scope) {
+            phoneticSrv.findAll(scope.lesson.name, function (phonetics) {
                 if (phonetics && phonetics.length > 0) {
                     phonetics = removeExistInArray(phonetics);
                     scope.lesson.content.phonetics = [];
-                    for(var key in phonetics) {
+                    for (var key in phonetics) {
                         var i = scope.lesson.content.phonetics.length;
-                        scope.lesson.content.phonetics[i] = {}; 
+                        scope.lesson.content.phonetics[i] = {};
                         scope.lesson.content.phonetics[i].text = phonetics[key];
                     }
                     scope.$apply();
@@ -223,7 +223,7 @@ angular.module('creator.lessons.controller', [
             }
         };
 
-        this.validateLessonName = function(scope) {
+        this.validateLessonName = function (scope) {
             if (scope.validated.lesson.name) return;
 
             if (!scope.lesson.name) {
@@ -235,7 +235,7 @@ angular.module('creator.lessons.controller', [
             }
         };
 
-        this.validateDifficultyLevel = function(scope) {
+        this.validateDifficultyLevel = function (scope) {
             if (scope.validated.lesson.difficulty_level) return;
 
             if (typeof scope.lesson.difficulty_level !== 'number') {
@@ -247,12 +247,12 @@ angular.module('creator.lessons.controller', [
             }
         };
 
-        this.validateLessonAudioUrl = function(scope) {
+        this.validateLessonAudioUrl = function (scope) {
             if (scope.validated.lesson.audio_url) return;
 
             if (scope.lesson.audio_url) {
                 scope.loading.lesson.audio_url = true;
-                audioSrv.checkSoundUrl(scope.lesson.audio_url, function(valid) {
+                audioSrv.checkSoundUrl(scope.lesson.audio_url, function (valid) {
                     scope.invalid.lesson.audio_url = !valid;
                     scope.loading.lesson.audio_url = false;
                     scope.validated.lesson.audio_url = valid;
@@ -265,12 +265,12 @@ angular.module('creator.lessons.controller', [
             }
         };
 
-        this.validateLessonPictureUrl = function(scope) {
+        this.validateLessonPictureUrl = function (scope) {
             if (scope.validated.lesson.picture_url) return;
 
             if (scope.lesson.picture_url) {
                 scope.loading.lesson.picture_url = true;
-                picturesSrv.checkPictureUrl(scope.lesson.picture_url, function(valid) {
+                picturesSrv.checkPictureUrl(scope.lesson.picture_url, function (valid) {
                     scope.invalid.lesson.picture_url = !valid;
                     scope.loading.lesson.picture_url = false;
                     scope.validated.lesson.picture_url = valid;
@@ -284,14 +284,14 @@ angular.module('creator.lessons.controller', [
 
         };
 
-        this.validateLessonScope = function(scope) {
+        this.validateLessonScope = function (scope) {
             self.validateLessonName(scope);
             self.validateDifficultyLevel(scope);
             self.validateLessonAudioUrl(scope);
             self.validateLessonPictureUrl(scope);
         };
 
-        var isValidated = function(scope) {
+        var isValidated = function (scope) {
             if (scope.validated.lesson.name &&
                 scope.validated.lesson.difficulty_level &&
                 scope.validated.lesson.audio_url &&
@@ -306,7 +306,7 @@ angular.module('creator.lessons.controller', [
             }
         };
 
-        this.isLessonScopeValid = function(scope) {
+        this.isLessonScopeValid = function (scope) {
             self.validateLessonScope(scope);
             return isValidated(scope);
         };
@@ -342,56 +342,56 @@ angular.module('creator.lessons.controller', [
                 audioSrv.playAudio(audioUrl);
             };
 
-            scope.changeName = function() {
+            scope.changeName = function () {
                 scope.validated.lesson.name = false;
                 isValidated(scope);
             };
 
-            scope.validateName = function() {
+            scope.validateName = function () {
                 self.validateLessonName(scope);
                 isValidated(scope);
             };
 
-            scope.changeDifficultyLevel = function() {
+            scope.changeDifficultyLevel = function () {
                 scope.validated.lesson.difficulty_level = false;
                 isValidated(scope);
             };
 
-            scope.validateDifficultyLevel = function() {
+            scope.validateDifficultyLevel = function () {
                 self.validateDifficultyLevel(scope);
                 isValidated(scope);
             };
 
-            scope.changeAudioUrl = function() {
+            scope.changeAudioUrl = function () {
                 scope.validated.lesson.audio_url = false;
                 isValidated(scope);
             };
 
-            scope.validateAudioUrl = function() {
+            scope.validateAudioUrl = function () {
                 self.validateLessonAudioUrl(scope);
                 isValidated(scope);
             };
 
-            scope.changePictureUrl = function() {
+            scope.changePictureUrl = function () {
                 scope.validated.lesson.picture_url = false;
                 isValidated(scope);
             };
 
-            scope.validatePictureUrl = function() {
+            scope.validatePictureUrl = function () {
                 self.validateLessonPictureUrl(scope);
                 isValidated(scope);
             };
 
-            scope.retrievePhonetic = function() {
+            scope.retrievePhonetic = function () {
                 retrievePhonetic(scope);
             };
 
 
             var typingTimer;
             var doneTypingInterval = 900;
-            scope.handleTypingName = function() {
+            scope.handleTypingName = function () {
                 clearTimeout(typingTimer);
-                typingTimer = setTimeout(function() {
+                typingTimer = setTimeout(function () {
                     refreshSoundUrl(scope);
                     retrievePhonetic(scope);
                 }, doneTypingInterval);
@@ -414,7 +414,7 @@ angular.module('creator.lessons.controller', [
         }
     })
 
-    .controller('lessons.list.ctrl', function ($scope, audioSrv, lessonsSrv, utils, lessons) {
+    .controller('lessons.list.ctrl', function ($scope, audioSrv, lessonsSrv, utils, course, lessons, descendants) {
         console.log("lesson.list.ctrl loading...");
         $scope.lessons = lessons;
 
@@ -441,10 +441,10 @@ angular.module('creator.lessons.controller', [
             var accept = confirm("Are you sure to delete lesson with id=" + id + "?");
             if (accept) {
                 lessonsSrv.delete(id,
-                    function(progress) {
+                    function (progress) {
 
                     },
-                    function(resp) {
+                    function (resp) {
                         utils.remove($scope.lessons, id);
                         $scope.$apply();
                         alert("Success");
@@ -454,7 +454,7 @@ angular.module('creator.lessons.controller', [
         };
 
 
-        $scope.getStatusStyle = function( status ) {
+        $scope.getStatusStyle = function (status) {
             var style = {};
             style['font-weight'] = 'bold';
             switch (status) {
@@ -469,9 +469,62 @@ angular.module('creator.lessons.controller', [
         };
 
         initPhonetics();
+
+        //
+        // Initialize for moving lessons function
+        //
+        $scope.tracking = {};
+        $scope.checkedLessons = {};
+        $scope.moving = {};
+        $scope.moving.leafCourses = [];
+        for (var i in descendants) {
+            if (descendants[i].content_type == "lesson") {
+                $scope.moving.leafCourses.push(descendants[i]);
+                if (descendants[i].id == course.id) {
+                    $scope.moving.slCourse = descendants[i];
+                    $scope.tracking.slCourse = descendants[i];
+                }
+            }
+        }
+
+        $scope.moveLessons = function () {
+            if ($scope.moving.slCourse !== $scope.tracking.slCourse) {
+                console.log("moving lessons...");
+                var updatePath = "/";
+                var patches = [];
+                var lessonsToMove = [];
+                var index = 0;
+                for (var i in $scope.lessons) {
+                    if ($scope.lessons[i].checked) {
+                        updatePath += $scope.lessons[i].id + ",";
+                        patches.push({op: 'replace', path: '/lessons/' + index++ + "/links/course", value: $scope.moving.slCourse.id});
+                        lessonsToMove.push($scope.lessons[i]);
+                    }
+                }
+                if (patches.length > 0) {
+                    updatePath = updatePath.slice(0, -1);
+                    lessonsSrv.updatePatch(patches, updatePath,
+                        function (onprogress) {
+                            $('#movingBtn').button('loading');
+                        },
+                        function (onsuccess) {
+                            for (var i in lessonsToMove) {
+                                $scope.lessons.splice($scope.lessons.indexOf(lessonsToMove[i]), 1);
+                            }
+                            $('#movingBtn').button('reset');
+                            $('#lessonMoving').modal('hide');
+                            $scope.moving.slCourse = $scope.tracking.slCourse;
+                            $scope.$apply();
+                        }
+                    );
+                    console.log(updatePath);
+                    console.log(patches);
+                }
+            }
+        }
     })
 
-    .controller('lessons.detail.ctrl', function($scope, lesson) {
+    .controller('lessons.detail.ctrl', function ($scope, lesson) {
         $scope.lesson = lesson;
     })
 
@@ -512,12 +565,12 @@ angular.module('creator.lessons.controller', [
         $scope.lesson = lesson;
         lessonUtils.initializeScope($scope);
 
-        $scope.saveChange = function() {
+        $scope.saveChange = function () {
             if (lessonUtils.isLessonScopeValid($scope))
                 save();
         };
 
-        var save = function() {
+        var save = function () {
             var lesson = lessonUtils.generateLessonFromScope($scope);
             lessonsSrv.save(lesson,
                 function (progress) {

@@ -60,6 +60,27 @@ angular.module('creator.lessons.service', [
             xhr.send(params);
         };
 
+        factory.updatePatch = function(patches, updatePath) {
+            var onProgressHandler = arguments[2];
+            var onSuccessHandler = arguments[3];
+            console.log("Updating data: " + JSON.stringify(patches));
+            var xhr = new XMLHttpRequest();
+            var url = path + "/v2/lessons" + updatePath;
+            xhr.open('PATCH', url, true);
+            xhr.setRequestHeader('Content-type', 'application/vnd.api+json; charset=utf-8');
+            xhr.setRequestHeader('Access-Token', userSrv.getToken().value);
+
+            xhr.onprogress = function(e) {
+                if (onProgressHandler) onProgressHandler(e);
+            };
+            xhr.onload = function() {
+                if (this.status === 204 ) {
+                    if (onSuccessHandler) onSuccessHandler({message: "Updated, refresh to see changed"});
+                }
+            };
+            xhr.send(JSON.stringify(patches));
+        };
+
         factory.update = function(lesson) {
             var onProgressHandler = arguments[1];
             var onSuccessHandler = arguments[2];
