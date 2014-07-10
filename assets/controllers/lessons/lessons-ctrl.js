@@ -499,6 +499,7 @@ angular.module('creator.lessons.controller', [
                     lesson.action.updating.order_number = false;
                     lesson.action.reload.order_number = true;
                     $scope.$apply();
+                    alert("Change order success, reload page to see change");
                 }
             );
         };

@@ -41,10 +41,10 @@
                             </thead>
 
                             <tbody>
-                            <!--<tr ng-repeat="lesson in lessons" valign="middle"-->
-                                <!--jquery-datatable="lessonsDatatable" un-sort-cols="1,3,4,5,7" sorted-col=6-->
-                                <!--sorted-type="desc">-->
-                            <tr ng-repeat="lesson in lessons" valign="middle">
+                            <tr ng-repeat="lesson in lessons" valign="middle"
+                                jquery-datatable="lessonsDatatable" un-sort-cols="1,3,4,5,7" sorted-col=6
+                                sorted-type="desc">
+                            <!--<tr ng-repeat="lesson in lessons" valign="middle">-->
                                 <td>
                                     <div ng-bind="lesson.id"></div>
                                     <div><input type="checkbox" ng-model="lesson.checked"></div>
@@ -84,8 +84,8 @@
                                     <div ng-show="action.order.enabled">
                                         <select ng-change="action.order.changeOrder(lesson)" ng-model="lesson.order_number" ng-options="o for o in action.order.numbers"></select>
                                     </div>
-                                    <div ng-show="lesson.action.updating.order_number"><img src="/images/loaders/spinner5.gif"/></div>
-                                    <div ng-show="lesson.action.reload.order_number" style="color: orange">Success, reload to see change</div>
+                                    <!--<div ng-show="lesson.action.updating.order_number"><img src="/images/loaders/spinner5.gif"/></div>-->
+                                    <!--<div ng-show="lesson.action.reload.order_number" style="color: orange">Success, reload to see change</div>-->
                                 </td>
                             </tr>
                             </tbody>
