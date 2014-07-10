@@ -8,6 +8,11 @@
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a data-toggle="modal" data-target="#lessonMoving">Move selected lessons to another course</a></li>
+                    <li>
+                        <a href="" ng-click="action.order.switchOnOff()">
+                            <span class="glyphicon glyphicon-ok-sign" ng-show="action.order.enabled"></span> Enable change order
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -73,7 +78,14 @@
                                     </a>
                                 </td>
                                 <td ng-bind="lesson.status_name" ng-style="getStatusStyle(lesson.status)"></td>
-                                <td ng-bind="lesson.order_number">NA</td>
+                                <td>
+                                    <div ng-bind="lesson.order_number" ng-show="!action.order.enabled"></div>
+                                    <div ng-show="action.order.enabled">
+                                        <select ng-change="action.order.changeOrder(lesson)" ng-model="lesson.order_number" ng-options="o for o in action.order.numbers"></select>
+                                    </div>
+                                    <div ng-show="lesson.action.updating.order_number"><img src="/images/loaders/spinner5.gif"/></div>
+                                    <div ng-show="lesson.action.reload.order_number" style="color: orange">Success, reload to see change</div>
+                                </td>
                             </tr>
                             </tbody>
                         </table>

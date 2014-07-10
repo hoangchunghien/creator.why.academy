@@ -471,7 +471,45 @@ angular.module('creator.lessons.controller', [
         initPhonetics();
 
         //
-        // Initialize for moving lessons function
+        // Initialize for lessons order function -----------------------------------------------------------------------
+        //
+        if (!$scope.action) $scope.action = {};
+        if (!$scope.action.order) $scope.action.order = {};
+        $scope.action.order.enabled = false;
+        $scope.action.order.numbers = [];
+        var num = 0;
+        for (var i in $scope.lessons) {
+            $scope.action.order.numbers.push(num++);
+        }
+
+        $scope.action.order.changeOrder = function(lesson) {
+            if (!lesson.action) lesson.action = {};
+            if (!lesson.action.updating) lesson.action.updating = {};
+            if (!lesson.action.reload) lesson.action.reload = {};
+
+            var updatePath = "/" + lesson.id;
+            var patches = [];
+            patches.push({op: 'replace', 'path': '/lessons/0/order_number', value: lesson.order_number});
+            lessonsSrv.updatePatch(patches, updatePath,
+                function(progress) {
+                    lesson.action.updating.order_number = true;
+                    $scope.$apply();
+                },
+                function(success) {
+                    lesson.action.updating.order_number = false;
+                    lesson.action.reload.order_number = true;
+                    $scope.$apply();
+                }
+            );
+        };
+
+        $scope.action.order.switchOnOff = function() {
+            $scope.action.order.enabled = ($scope.action.order.enabled)?false:true;
+        };
+
+
+        //
+        // Initialize for moving lessons function ----------------------------------------------------------------------
         //
         $scope.tracking = {};
         $scope.checkedLessons = {};

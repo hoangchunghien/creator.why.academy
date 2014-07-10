@@ -180,6 +180,8 @@ angular.module('creator.courses.controller', [
     })
 
     .controller('creator.courses.edit.ctrl', function($scope, $state, courseUtils, coursesSrv, course, descendants, root) {
+        $scope.title = "EDIT COURSE";
+
         $scope.course = course;
         courseUtils.initializeScope($scope);
         courseUtils.isDataValid($scope);
@@ -251,6 +253,7 @@ angular.module('creator.courses.controller', [
 
 
     .controller('creator.courses.new.ctrl', function($scope, $state, courseUtils, coursesSrv, course){
+        $scope.title = "NEW COURSE";
         $scope.course = course;
         courseUtils.initializeScope($scope);
 

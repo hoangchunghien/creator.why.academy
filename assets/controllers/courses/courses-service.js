@@ -68,8 +68,8 @@ angular.module('creator.courses.service', [
                 if (opts.include_contents) {
                     include += ",courses,lessons";
                     params['include'] = include;
-                    params['fields[lessons]'] = "id,name,picture_url,difficulty_level,type,language,audio_url,content,status,created_at";
-                    params['fields[courses]'] = "id,name,description,picture_url,status";
+                    params['fields[lessons]'] = "id,name,picture_url,difficulty_level,type,language,audio_url,content,status,created_at,order_number";
+                    params['fields[courses]'] = "id,name,content_type,description,picture_url,status";
                     params['q[lessons.status]'] = "0,1,2,3,4,5,6,7,8,9,10,11,12,13";
                     params['q[courses.status]'] = "0,1,2,3,4,5,6,7,8,9,10,11,12,13";
                 }

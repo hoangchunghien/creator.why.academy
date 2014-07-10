@@ -3,7 +3,7 @@
     <div class="col-md-8 box-container">
         <div class="box border ">
             <div class="box-title">
-                <h4>COURSE EDITOR</h4>
+                <h4 ng-bind="title"></h4>
             </div>
             <div class="box-body">
 
@@ -17,7 +17,7 @@
 
                     <div class="form-group" ng-show="course.parent">
                         <div ng-show="show.course.enableSlParent">
-                            <div class="col-sm-2"></div><div class="col-sm-10"><a class="btn" ng-click="showChangeParent()">Change parent</a></div>
+                            <div class="col-sm-2"></div><div class="col-sm-10"><a class="btn" ng-click="showChangeParent()">Move to another course</a></div>
                         </div>
                         <label for="parent" class="col-sm-2 control-label" ng-show="show.course.slParent">Parent</label>
                         <div class="col-sm-10" ng-show="show.course.slParent">
