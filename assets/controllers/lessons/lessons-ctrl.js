@@ -416,7 +416,122 @@ angular.module('creator.lessons.controller', [
 
     .controller('lessons.list.ctrl', function ($scope, audioSrv, lessonsSrv, utils, course, lessons, descendants) {
         console.log("lesson.list.ctrl loading...");
-        $scope.lessons = lessons;
+
+        //
+        // Initialize for lessons order function -----------------------------------------------------------------------
+        //
+        var initializeForOrder = function () {
+            if (!$scope.action) $scope.action = {};
+            if (!$scope.action.order) $scope.action.order = {};
+            $scope.action.order.enabled = false;
+            $scope.action.order.numbers = [];
+
+            $scope.loadOrderNumbers = function (lesson) {
+                if (!lesson.order) lesson.order = {};
+                lesson.order.activated = true;
+                if (!lesson.order.numbers) {
+                    lesson.order.loading = true;
+                    setTimeout(function () {
+                        lesson.order.numbers = [];
+                        var num = 0;
+                        for (var i in $scope.lessons) {
+                            lesson.order.numbers.push(num++);
+                        }
+                        lesson.order.loading = false;
+                        $scope.$apply();
+                    }, 200);
+                }
+            };
+
+            $scope.action.order.changeOrder = function (lesson) {
+                alert("Changing order...");
+                if (!lesson.action) lesson.action = {};
+                if (!lesson.action.updating) lesson.action.updating = {};
+                if (!lesson.action.reload) lesson.action.reload = {};
+
+                var updatePath = "/" + lesson.id;
+                var patches = [];
+                patches.push({op: 'replace', 'path': '/lessons/0/order_number', value: lesson.order_number});
+                lessonsSrv.updatePatch(patches, updatePath,
+                    function (progress) {
+                        lesson.action.updating.order_number = true;
+                        $scope.$apply();
+                    },
+                    function (success) {
+                        lesson.action.updating.order_number = false;
+                        lesson.action.reload.order_number = true;
+                        $scope.$apply();
+                        alert("Change order success, reload page to see change");
+                    }
+                );
+            };
+
+            $scope.action.order.switchOnOff = function () {
+                $scope.action.order.enabled = ($scope.action.order.enabled) ? false : true;
+            };
+        };
+
+        var initializeForMovingLessons = function () {
+            //
+            // Initialize for moving lessons function ----------------------------------------------------------------------
+            //
+            $scope.tracking = {};
+            $scope.checkedLessons = {};
+            $scope.moving = {};
+            $scope.moving.leafCourses = [];
+            for (var i in descendants) {
+                if (descendants[i].content_type == "lesson") {
+                    $scope.moving.leafCourses.push(descendants[i]);
+                    if (descendants[i].id == course.id) {
+                        $scope.moving.slCourse = descendants[i];
+                        $scope.tracking.slCourse = descendants[i];
+                    }
+                }
+            }
+
+            $scope.moveLessons = function () {
+                if ($scope.moving.slCourse !== $scope.tracking.slCourse) {
+                    console.log("moving lessons...");
+                    var updatePath = "/";
+                    var patches = [];
+                    var lessonsToMove = [];
+                    var index = 0;
+                    for (var i in $scope.lessons) {
+                        if ($scope.lessons[i].checked) {
+                            updatePath += $scope.lessons[i].id + ",";
+                            patches.push({op: 'replace', path: '/lessons/' + index++ + "/links/course", value: $scope.moving.slCourse.id});
+                            lessonsToMove.push($scope.lessons[i]);
+                        }
+                    }
+                    if (patches.length > 0) {
+                        updatePath = updatePath.slice(0, -1);
+                        lessonsSrv.updatePatch(patches, updatePath,
+                            function (onprogress) {
+                                $('#movingBtn').button('loading');
+                            },
+                            function (onsuccess) {
+                                for (var i in lessonsToMove) {
+                                    $scope.lessons.splice($scope.lessons.indexOf(lessonsToMove[i]), 1);
+                                }
+                                $('#movingBtn').button('reset');
+                                $('#lessonMoving').modal('hide');
+                                $scope.moving.slCourse = $scope.tracking.slCourse;
+                                $scope.$apply();
+                            }
+                        );
+                        console.log(updatePath);
+                        console.log(patches);
+                    }
+                }
+            }
+        };
+
+        var initialize = function () {
+            initializeForOrder();
+            initializeForMovingLessons();
+            $scope.lessons = lessons;
+            initPhonetics();
+        };
 
         var initPhonetics = function () {
             console.log('Initializing phonetics...');
@@ -468,99 +583,7 @@ angular.module('creator.lessons.controller', [
             return style;
         };
 
-        initPhonetics();
-
-        //
-        // Initialize for lessons order function -----------------------------------------------------------------------
-        //
-        if (!$scope.action) $scope.action = {};
-        if (!$scope.action.order) $scope.action.order = {};
-        $scope.action.order.enabled = false;
-        $scope.action.order.numbers = [];
-        var num = 0;
-        for (var i in $scope.lessons) {
-            $scope.action.order.numbers.push(num++);
-        }
-
-        $scope.action.order.changeOrder = function(lesson) {
-            if (!lesson.action) lesson.action = {};
-            if (!lesson.action.updating) lesson.action.updating = {};
-            if (!lesson.action.reload) lesson.action.reload = {};
-
-            var updatePath = "/" + lesson.id;
-            var patches = [];
-            patches.push({op: 'replace', 'path': '/lessons/0/order_number', value: lesson.order_number});
-            lessonsSrv.updatePatch(patches, updatePath,
-                function(progress) {
-                    lesson.action.updating.order_number = true;
-                    $scope.$apply();
-                },
-                function(success) {
-                    lesson.action.updating.order_number = false;
-                    lesson.action.reload.order_number = true;
-                    $scope.$apply();
-                    alert("Change order success, reload page to see change");
-                }
-            );
-        };
-
-        $scope.action.order.switchOnOff = function() {
-            $scope.action.order.enabled = ($scope.action.order.enabled)?false:true;
-        };
-
-
-        //
-        // Initialize for moving lessons function ----------------------------------------------------------------------
-        //
-        $scope.tracking = {};
-        $scope.checkedLessons = {};
-        $scope.moving = {};
-        $scope.moving.leafCourses = [];
-        for (var i in descendants) {
-            if (descendants[i].content_type == "lesson") {
-                $scope.moving.leafCourses.push(descendants[i]);
-                if (descendants[i].id == course.id) {
-                    $scope.moving.slCourse = descendants[i];
-                    $scope.tracking.slCourse = descendants[i];
-                }
-            }
-        }
-
-        $scope.moveLessons = function () {
-            if ($scope.moving.slCourse !== $scope.tracking.slCourse) {
-                console.log("moving lessons...");
-                var updatePath = "/";
-                var patches = [];
-                var lessonsToMove = [];
-                var index = 0;
-                for (var i in $scope.lessons) {
-                    if ($scope.lessons[i].checked) {
-                        updatePath += $scope.lessons[i].id + ",";
-                        patches.push({op: 'replace', path: '/lessons/' + index++ + "/links/course", value: $scope.moving.slCourse.id});
-                        lessonsToMove.push($scope.lessons[i]);
-                    }
-                }
-                if (patches.length > 0) {
-                    updatePath = updatePath.slice(0, -1);
-                    lessonsSrv.updatePatch(patches, updatePath,
-                        function (onprogress) {
-                            $('#movingBtn').button('loading');
-                        },
-                        function (onsuccess) {
-                            for (var i in lessonsToMove) {
-                                $scope.lessons.splice($scope.lessons.indexOf(lessonsToMove[i]), 1);
-                            }
-                            $('#movingBtn').button('reset');
-                            $('#lessonMoving').modal('hide');
-                            $scope.moving.slCourse = $scope.tracking.slCourse;
-                            $scope.$apply();
-                        }
-                    );
-                    console.log(updatePath);
-                    console.log(patches);
-                }
-            }
-        }
+        initialize();
     })
 
     .controller('lessons.detail.ctrl', function ($scope, lesson) {
