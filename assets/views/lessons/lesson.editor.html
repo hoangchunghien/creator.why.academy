@@ -183,7 +183,7 @@
                     <img ng-src="{{lesson.picture_url}}"/>
                 </div>
                 <br>
-                <div class="h5" ng-show="lesson.content.phonetics.length>0">/<span ng-bind="lesson.content.phonetics[0].text"></span>/ 
+                <div class="h5" ng-show="lesson.content.phonetics[0].text!=''">/<span ng-bind="lesson.content.phonetics[0].text"></span>/
                     <a class="btn" ng-click="playAudio(lesson.audio_url)"><span class="glyphicon glyphicon-volume-up"></span></a>
                 </div>
                 <br>
