@@ -444,7 +444,6 @@ angular.module('creator.lessons.controller', [
             };
 
             $scope.action.order.changeOrder = function (lesson) {
-                alert("Changing order...");
                 if (!lesson.action) lesson.action = {};
                 if (!lesson.action.updating) lesson.action.updating = {};
                 if (!lesson.action.reload) lesson.action.reload = {};

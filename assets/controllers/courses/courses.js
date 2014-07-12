@@ -29,6 +29,9 @@ angular.module('creator.courses', [
                                         fields:{user:'id,name',parent:'id'},
                                         include:'parent'
                                     });
+                        },
+                        showActionBar: function() {
+                            return false;
                         }
                     },
                     views: {
@@ -55,7 +58,11 @@ angular.module('creator.courses', [
                     ,resolve: {
                         course: function ($stateParams, coursesSrv) {
                             return coursesSrv.findById($stateParams.id, 
-                                    {include_contents:true, fields: {user: "id,name"}, sort: {lessons: "-created_at"}}
+                                    {
+                                        include_contents:true,
+                                        fields: {user: "id,name"},
+                                        sort: {lessons: "-created_at", courses: 'order_number'}
+                                    }
                                 );
                         },
                         ancestors: function ($stateParams, coursesSrv) {
@@ -102,6 +109,9 @@ angular.module('creator.courses', [
                                 course.numOfItems = course.lessons.length;
                             }
                             return course.lessons;
+                        },
+                        showActionBar: function() {
+                            return true;
                         }
                     },
                     views: {

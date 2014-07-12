@@ -85,7 +85,8 @@
                                     <div ng-bind="lesson.order_number" ng-show="!action.order.enabled"></div>
                                     <div ng-show="action.order.enabled">
                                         <a ng-show="!lesson.order.activated"
-                                           ng-bind="(lesson.order_number != null)?lesson.order_number:'set'" ng-click="loadOrderNumbers(lesson)">set</a>
+                                           ng-bind="(lesson.order_number != null)?lesson.order_number:'set'"
+                                           ng-click="loadOrderNumbers(lesson)">set</a>
 
                                         <div ng-show="lesson.order.activated">
                                             <div ng-show="lesson.order.loading"><img

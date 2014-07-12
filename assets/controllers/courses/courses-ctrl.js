@@ -168,7 +168,13 @@ angular.module('creator.courses.controller', [
         $scope.course = course;
     })
 
-    .controller('creator.courses.list.ctrl', function($scope, $state, courses) {
+    .controller('creator.courses.list.ctrl', function($scope, $state, coursesSrv, courses, showActionBar) {
+        if (!$scope.action) $scope.action = {};
+        if (!$scope.action.show) $scope.action.show = {};
+
+        if (showActionBar) {
+            if (courses && courses.length > 0) $scope.action.show.bar = true;
+        }
         console.log("creator.courses.list.ctrl loading...");
         $scope.courses = [];
         for (var i in courses) {
@@ -176,7 +182,37 @@ angular.module('creator.courses.controller', [
                 $scope.courses[$scope.courses.length] = courses[i];
             }
         }
-        // $scope.courses = courses;
+
+        // Initialize for order function
+        if (!$scope.action.order) $scope.action.order = {};
+        $scope.action.order.switchOnOff = function() {
+            $scope.action.order.enabled = !$scope.action.order.enabled;
+        };
+
+        $scope.activateOrder = function(course) {
+            if (!course.order) {
+                course.order = {};
+                course.order.activated = true;
+                course.order.numbers = [];
+                var num = 0;
+                for (var i in $scope.courses) {
+                    course.order.numbers.push(num++);
+                }
+            }
+        };
+        $scope.changeOrderNumber = function(course) {
+            var updatePath = "/" + course.id;
+            var patches = [];
+            patches.push({op: 'replace', 'path': '/courses/0/order_number', value: course.order_number});
+            coursesSrv.update(patches, updatePath,
+                function(progress) {
+                    console.log("Saving changed...");
+                },
+                function(success) {
+                    alert("Change order success, reload page to see change");
+                }
+            )
+        };
     })
 
     .controller('creator.courses.edit.ctrl', function($scope, $state, courseUtils, coursesSrv, course, descendants, root) {

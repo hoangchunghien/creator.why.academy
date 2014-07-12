@@ -33,6 +33,9 @@ angular.module('creator.users', [
                                     include:'parent'
                                 }
                             );
+                        },
+                        showActionBar: function() {
+                            return false;
                         }
                     },
                     views: {

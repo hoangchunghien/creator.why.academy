@@ -69,7 +69,7 @@ angular.module('creator.courses.service', [
                     include += ",courses,lessons";
                     params['include'] = include;
                     params['fields[lessons]'] = "id,name,picture_url,difficulty_level,type,language,audio_url,content,status,created_at,order_number";
-                    params['fields[courses]'] = "id,name,content_type,description,picture_url,status";
+                    params['fields[courses]'] = "id,name,content_type,description,picture_url,status,order_number";
                     params['q[lessons.status]'] = "0,1,2,3,4,5,6,7,8,9,10,11,12,13";
                     params['q[courses.status]'] = "0,1,2,3,4,5,6,7,8,9,10,11,12,13";
                 }
@@ -81,6 +81,9 @@ angular.module('creator.courses.service', [
                 if (opts.sort) {
                     if (opts.sort.lessons) {
                         params['sort[lessons]'] = opts.sort.lessons;
+                    }
+                    if (opts.sort.courses) {
+                        params['sort[courses]'] = opts.sort.courses;
                     }
                 }
             }
