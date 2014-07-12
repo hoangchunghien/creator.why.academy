@@ -620,7 +620,7 @@ angular.module('creator.lessons.controller', [
 
     })
 
-    .controller('lessons.new.ctrl', function (Seo, $scope, $state, lessonsSrv, lessonUtils, lesson) {
+    .controller('lessons.new.ctrl', function (Seo, $scope, $state, lessonsSrv, lessonUtils, lesson, lessons) {
         Seo.title = "New lesson";
         $scope.action = "NEW LESSON";
         $scope.lesson = lesson;
@@ -641,6 +641,7 @@ angular.module('creator.lessons.controller', [
                 function (resp) {
                     console.log("Success: " + JSON.stringify(resp));
                     $("#btnEditorSaveChange").button('complete');
+                    lessons.push(resp.lesson);
                     $state.go('courses-detail-contents', {id: lesson.course_id},
                         {location: true, inherit: true, relative: $state.$current, notify: true }
                     );
