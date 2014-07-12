@@ -31,6 +31,7 @@ angular.module('creator.courses.service', [
                     if (opts.query.user && opts.query.user.id) {
                         params['q[user.id]'] = opts.query.user.id;
                     }
+                    if (opts.query['status']) params['q[status]'] = opts.query['status'];
                 }
                 if (opts.fields) {
                     if (opts.fields.user) {
