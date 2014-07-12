@@ -1,8 +1,13 @@
-<div class="course-navigator">
-    <div class="h4">
+<div class="row navigator">
+    <div ng-show="hasTab" class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="course-navigator">
+            <div class="h4">
         <span ng-repeat="ancestor in ancestors">
             <a ng-href="/courses/{{ancestor.id}}" ng-bind="ancestor.name" class="course-navigator-link"></a>
             <span> > </span>
         </span>
+            </div>
+        </div>
     </div>
 </div>

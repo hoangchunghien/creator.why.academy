@@ -7,7 +7,9 @@ angular.module('creator.navigation.ancestors.controller', [
 ])
     .controller('creator.navigation.ancestors.ctrl', function($scope, $http, ancestors, course, coursesSrv, showCurrentCourseInNavigator) {
         $scope.ancestors = coursesSrv.ancestorsToArray(ancestors);
+        $scope.hasTab = true;
         if (showCurrentCourseInNavigator) {
             $scope.ancestors.push(course);
+            $scope.hasTab = false;
         }
     });

@@ -164,12 +164,19 @@ angular.module('creator.courses', [
                         lesson: function(course) {
                             var lesson = {course_id: course.id};
                             return lesson;
+                        },
+                        showCurrentCourseInNavigator: function() {
+                            return true;
                         }
                     },
                     views: {
                         '@courses': {
                             templateUrl: '/views/lessons/lesson.editor.html'
                             ,controller: 'lessons.new.ctrl'
+                        },
+                        'navigator@courses': {
+                            templateUrl: '/views/navigation/ancestors-navigator.html',
+                            controller: 'creator.navigation.ancestors.ctrl'
                         }
                     }
                 })
