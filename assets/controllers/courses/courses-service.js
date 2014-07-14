@@ -37,9 +37,16 @@ angular.module('creator.courses.service', [
                     if (opts.fields.user) {
                         params['fields[user]'] = opts.fields.user;
                     }
+                    if (opts.fields['']) {
+                        params['fields[]'] = opts.fields[''];
+                    }
                 }
                 if (opts.include) {
                     params['include'] = opts.include;
+                }
+                if (opts.sort) {
+                    if (opts.sort[''])
+                        params['sort[]'] = opts.sort[''];
                 }
             }
             var courses = $http({

@@ -24,12 +24,23 @@ angular.module('creator.admin', [
                         courses: function (coursesSrv) {
                             return coursesSrv.findAll({
                                 query:{status:'1,2,3,4,5,6,7,8,9,10,11,12,13'},
-                                fields:{user:'id,name',parent:'id'},
-                                include:'parent'
+                                fields:{
+                                    user:'id,name',
+                                    parent:'id',
+                                    '': 'id,name,picture_url,content_type,description,status'
+                                },
+                                include:'parent',
+                                sort: {'': 'created_at'}
                             });
                         },
                         showActionBar: function() {
                             return true;
+                        },
+                        showAuthor: function() {
+                            return true;
+                        },
+                        showOrder: function() {
+                            return false;
                         }
                     },
                     views: {
@@ -48,7 +59,7 @@ angular.module('creator.admin', [
                             templateUrl: '/views/admin/admin.course.detail.html'
                         }
                         ,'navigator@admin': {
-                            templateUrl: '/views/navigation/ancestors-navigator.html',
+                            templateUrl: '/views/admin/admin.ancestors-navigator.html',
                             controller: 'creator.navigation.ancestors.ctrl'
                         }
                     }
@@ -84,6 +95,12 @@ angular.module('creator.admin', [
                         },
                         showCurrentCourseInNavigator: function () {
                             return false;
+                        },
+                        showAuthor: function() {
+                            return false;
+                        },
+                        showOrder: function() {
+                            return true;
                         }
                     }
                 })

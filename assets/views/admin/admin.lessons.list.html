@@ -7,13 +7,8 @@
                     Actions <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a data-toggle="modal" data-target="#lessonMoving">Move selected lessons to another course</a>
-                    </li>
                     <li>
-                        <a href="" ng-click="action.order.switchOnOff()">
-                            <span class="glyphicon glyphicon-ok-sign" ng-show="action.order.enabled"></span> Enable
-                            change order
-                        </a>
+                        <a data-toggle="modal" data-target="#changeLessonsStatus">Change status for selected lessons</a>
                     </li>
                 </ul>
             </div>
@@ -36,7 +31,6 @@
                                 <th>Sound</th>
                                 <!--<th>Difficulty level</th> -->
                                 <th>Created at</th>
-                                <th>Command</th>
                                 <th>Status</th>
                                 <th>Order</th>
                             </tr>
@@ -71,15 +65,6 @@
                                 </td>
                                 <!--<td align="center" ng-bind="lesson.difficulty_level"></td> -->
                                 <td ng-bind="lesson.created_at"></td>
-                                <td>
-                                    <a ng-href="/lessons/{{lesson.id}}/edit" type="button" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                    </a>
-                                    <a ng-class="{'disabled': lesson.status === 10}"
-                                       ng-click="deleteLesson(lesson.id)" type="button" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </a>
-                                </td>
                                 <td ng-bind="lesson.status_name" ng-style="getStatusStyle(lesson.status)"></td>
                                 <td>
                                     <div ng-bind="lesson.order_number" ng-show="!action.order.enabled"></div>
@@ -109,7 +94,7 @@
         </div>
     </div>
 
-    <div class="modal fade bs-example-modal-sm" id="lessonMoving" tabindex="-1" role="dialog"
+    <div class="modal fade bs-example-modal-sm" id="changeLessonsStatus" tabindex="-1" role="dialog"
          aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog">
 
@@ -117,15 +102,13 @@
                 <form class="form-horizontal" role="form">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Moving lessons to other course</h4>
+                        <h4 class="modal-title" id="myModalLabel">Change status for these selected lessons</h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="picture" class="col-sm-2 control-label">Course</label>
+                            <label for="picture" class="col-sm-2 control-label">To status</label>
 
                             <div class="col-sm-10">
-                                <!--<p class="form-control-static"><a ng-href="/courses/{{parent.id}}" ng-bind="course.parent.id"></a>-->
-                                <!--</p>-->
                                 <select id="slCourse" class="form-control" ng-model="moving.slCourse"
                                         ng-options="c.name for c in moving.leafCourses"></select>
                             </div>
@@ -134,9 +117,9 @@
                 </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" id="movingBtn" class="btn btn-primary" data-loading-text="Moving..."
-                            ng-click="moveLessons()">
-                        Move
+                    <button type="button" id="savingBtn" class="btn btn-primary" data-loading-text="Saving..."
+                            ng-click="changeSelectedLessonsStatus()">
+                        Save
                     </button>
                 </div>
             </div>
