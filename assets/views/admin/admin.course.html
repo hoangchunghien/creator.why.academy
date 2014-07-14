@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+
+        <div class="h1" ng-bind="course.name"></div>
+        <div class="row  course-detail-info">
+            <div class="pull-left col-md-3">
+                <img ng-src="{{ course.picture_url}}" height="150">
+            </div>
+            <div class="pull-left col-md-9 h5">
+                <div ng-bind="course.description"></div>
+                <br/><br/>
+                <div>
+                    <div><b>Author</b>: <span ng-bind="course.user.name"></span></div>
+                    <div><b>Content type</b>: <span ng-bind="course.content_type"></span></div>
+                    <div><a ng-href="/courses/{{course.id}}/edit">Edit</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="pull-left"><span ng-bind="(course.courses.length)?course.courses.length:course.lessons.length"></span> <span ng-bind="course.content_type"></span>s</div><a class="pull-right" ng-href="/courses/{{course.id}}/add">Add <span ng-bind="course.content_type"></span></a>
+            </div>
+        </div>
+    </div>
+</div>

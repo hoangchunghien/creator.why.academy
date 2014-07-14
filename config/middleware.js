@@ -136,8 +136,8 @@ module.exports = {
                     'commons',
                     'login',
                     'logout',
-                    'auth',
-                    'admin'
+                    'auth'
+//                    ,'admin'
                 ];
                 var isStatic = false;
                 for(i = 0; i < statics.length; i++){
