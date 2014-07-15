@@ -47,7 +47,7 @@
                     <td><a ng-bind="course.name" ng-href="/admin/courses/{{course.id}}"></a></td>
                     <td ng-bind="course.content_type"></td>
                     <td ng-bind="course.description"></td>
-                    <td ng-bind="course.status_name" ng-style="getStatusStyle(lesson.status)"></td>
+                    <td ng-bind="course.status_name" ng-style="getStatusStyle(course.status)"></td>
                     <td ng-show="show.author" ng-bind="course.user.name"></td>
                     <td ng-show="show.order" ng-bind="course.order_number"></td>
                 </tr>
@@ -70,8 +70,8 @@
                             <label for="picture" class="col-sm-2 control-label">To status</label>
 
                             <div class="col-sm-10">
-                                <select id="slCourse" class="form-control" ng-model="moving.slCourse"
-                                        ng-options="c.name for c in moving.leafCourses"></select>
+                                <select id="slCourse" class="form-control" ng-model="slStatus"
+                                        ng-options="c.text for c in status"></select>
                             </div>
                         </div>
                     </div>
