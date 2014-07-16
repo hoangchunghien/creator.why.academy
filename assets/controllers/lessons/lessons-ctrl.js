@@ -414,7 +414,7 @@ angular.module('creator.lessons.controller', [
         }
     })
 
-    .controller('lessons.list.ctrl', function ($scope, audioSrv, lessonsSrv, utils, course, lessons, descendants) {
+    .controller('lessons.list.ctrl', function ($scope, audioSrv, lessonsSrv, coursesSrv, utils, course, lessons, descendants) {
         console.log("lesson.list.ctrl loading...");
 
         //
@@ -478,12 +478,14 @@ angular.module('creator.lessons.controller', [
             $scope.checkedLessons = {};
             $scope.moving = {};
             $scope.moving.leafCourses = [];
-            for (var i in descendants) {
-                if (descendants[i].content_type == "lesson") {
-                    $scope.moving.leafCourses.push(descendants[i]);
-                    if (descendants[i].id == course.id) {
-                        $scope.moving.slCourse = descendants[i];
-                        $scope.tracking.slCourse = descendants[i];
+
+            var descendantsArr = coursesSrv.descendantsToArray(descendants);
+            for (var i in descendantsArr) {
+                if (descendantsArr[i].content_type == "lesson") {
+                    $scope.moving.leafCourses.push(descendantsArr[i]);
+                    if (descendantsArr[i].id == course.id) {
+                        $scope.moving.slCourse = descendantsArr[i];
+                        $scope.tracking.slCourse = descendantsArr[i];
                     }
                 }
             }
