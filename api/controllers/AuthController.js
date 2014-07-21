@@ -46,7 +46,7 @@ var loadEnv = function() {
     console.log("Running enviroment: " + process.env.NODE_ENV);
     if (process.env.NODE_ENV === "development") {
         creator_url = 'http://localhost';
-        api_url = 'http://localhost:8080';
+        api_url = 'http://staging.why.academy:8080';
     }
     else {
         creator_url = 'http://author.why.academy';

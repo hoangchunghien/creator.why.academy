@@ -20,7 +20,8 @@
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10 box-container">
-            <table id="coursesDatatable" class="table table-striped">
+            <table id="coursesDatatable" class="table table-striped"
+                   datatable="ng" dt-options="dtOptions" dt-columns="dtColumns">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -34,9 +35,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="course in courses" valign="middle"
-                    jquery-datatable="coursesDatatable" un-sort-cols="1"
-                    sorted-type="desc">
+                <tr dt-rows="" ng-repeat="course in courses" valign="middle">
+                    <!--
+                    jquery-datatable="coursesDatatable"
+                    un-sort-cols="1"
+                    sorted-type="desc"
+                    -->
                     <td>
                         <div ng-bind="course.id"></div>
                         <div><input type="checkbox" ng-model="course.checked"></div>

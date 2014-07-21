@@ -20,7 +20,8 @@
             <div class="box">
                 <div class="box-body">
                     <div class="clearfix">
-                        <table id="lessonsDatatable" class="table table-striped">
+                        <table id="lessonsDatatable" class="table table-striped"
+                               datatable="ng" dt-options="dtOptions" dt-columns="dtColumns">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -37,9 +38,13 @@
                             </thead>
 
                             <tbody>
-                            <tr ng-repeat="lesson in lessons" valign="middle"
-                                jquery-datatable="lessonsDatatable" un-sort-cols="1,3,4,5,7" sorted-col=6
-                                sorted-type="desc">
+                            <tr dt-rows="" ng-repeat="lesson in lessons" valign="middle" >
+                                <!--
+                                 jquery-datatable="lessonsDatatable"
+                                un-sort-cols="1,3,4,5,7"
+                                sorted-col=6
+                                sorted-type="desc"
+                                -->
                                 <!--<tr ng-repeat="lesson in lessons" valign="middle">-->
                                 <td>
                                     <div ng-bind="lesson.id"></div>

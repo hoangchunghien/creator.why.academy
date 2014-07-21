@@ -9,7 +9,7 @@ angular.module('creator.api.service', [
         var factory = {};
         factory.serverPath = function() {
             if (window.location.hostname === "localhost") {
-                return "http://localhost:8080";
+                return "http://staging.why.academy:8080";
             }
             else {
                 return "http://api.why.academy";

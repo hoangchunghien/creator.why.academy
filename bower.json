@@ -11,6 +11,7 @@
         "magicsuggest": "2.0.4",
         "datatables": "1.10.0",
         "typeahead.js": "*",
-        "bloodhound": "1.0.2"
+        "bloodhound": "1.0.2",
+        "angular-datatables":"0.0.1"
     }
 }

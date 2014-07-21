@@ -4,7 +4,8 @@
 
 angular.module('creator.admin.controller', [
     'creator.api.service',
-    'creator.courses.service'
+    'creator.courses.service',
+    'datatables'
 ])
     .controller('creator.admin.course.detail.ctrl', function(Seo, $scope, $state, course) {
         Seo.title = course.name;
@@ -12,7 +13,15 @@ angular.module('creator.admin.controller', [
         $scope.course = course;
     })
 
-    .controller('creator.admin.courses.list.ctrl', function($scope, $state, courses, coursesSrv, showActionBar, showAuthor, showOrder) {
+    .controller('creator.admin.courses.list.ctrl', function($scope, $state, courses, coursesSrv, showActionBar, showAuthor, showOrder,
+                                                            $DTDefaultOptions,DTOptionsBuilder,DTColumnBuilder) {
+        //
+        //configure angular-datatables
+        //
+        $DTDefaultOptions.setDisplayLength(20);
+        $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
+
+        //
         $scope.courses = courses;
         $scope.show = {};
         $scope.show.author = showAuthor;
@@ -84,7 +93,26 @@ angular.module('creator.admin.controller', [
         };
     })
 
-    .controller('creator.admin.lessons.list.ctrl', function($scope, $state, lessonsSrv, lessons, showActionBar) {
+    .controller('creator.admin.lessons.list.ctrl', function($scope, $state, lessonsSrv, lessons, showActionBar,
+                                                            $DTDefaultOptions,DTOptionsBuilder,DTColumnBuilder) {
+        //
+        //configure for angular-datatables
+        //
+        $DTDefaultOptions.setDisplayLength(40);
+        $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
+        $scope.dtColumns = [
+            DTColumnBuilder.newColumn('id').withTitle('ID').notSortable(),
+            DTColumnBuilder.newColumn('picture_url').withTitle('Picture').notSortable(),
+            DTColumnBuilder.newColumn('name').withTitle('Name'),
+            DTColumnBuilder.newColumn('type').withTitle('Type'),
+            DTColumnBuilder.newColumn('phonetics').withTitle('Phonetics').notSortable(),
+            DTColumnBuilder,
+            DTColumnBuilder.newColumn('created at').withTitle('Created at'),
+            DTColumnBuilder.newColumn('status').withTitle('Status'),
+            DTColumnBuilder.newColumn('order').withTitle('Order')
+        ];
+        //
+
         $scope.lessons = lessons;
         $scope.show = {};
         $scope.show.actionBar = showActionBar;

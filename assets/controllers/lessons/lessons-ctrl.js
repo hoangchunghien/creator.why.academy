@@ -8,7 +8,8 @@ angular.module('creator.lessons.controller', [
     'creator.users.service',
     'creator.audio.service',
     'creator.lessons.service',
-    'creator.pictures.service'
+    'creator.pictures.service',
+    'datatables'
 ])
     .service('lessonUtils', function ($http, audioSrv, picturesSrv, phoneticSrv) {
 
@@ -414,8 +415,27 @@ angular.module('creator.lessons.controller', [
         }
     })
 
-    .controller('lessons.list.ctrl', function ($scope, audioSrv, lessonsSrv, coursesSrv, utils, course, lessons, descendants) {
+    .controller('lessons.list.ctrl', function ($scope, audioSrv, lessonsSrv, coursesSrv, utils, course, lessons, descendants,
+                                               $DTDefaultOptions,DTOptionsBuilder,DTColumnBuilder) {
         console.log("lesson.list.ctrl loading...");
+        //
+        //configure for angular-datatables
+        //
+        $DTDefaultOptions.setDisplayLength(40);
+        $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
+        $scope.dtColumns = [
+            DTColumnBuilder.newColumn('id').withTitle('ID').notSortable(),
+            DTColumnBuilder.newColumn('picture_url').withTitle('Picture').notSortable(),
+            DTColumnBuilder.newColumn('name').withTitle('Name'),
+            DTColumnBuilder.newColumn('type').withTitle('Type'),
+            DTColumnBuilder.newColumn('phonetics').withTitle('Phonetics').notSortable(),
+            DTColumnBuilder,
+            DTColumnBuilder.newColumn('created at').withTitle('Created at'),
+            DTColumnBuilder.newColumn('command').withTitle('Command').notSortable(),
+            DTColumnBuilder.newColumn('status').withTitle('Status'),
+            DTColumnBuilder.newColumn('order').withTitle('Order')
+        ];
+        //
 
         //
         // Initialize for lessons order function -----------------------------------------------------------------------
