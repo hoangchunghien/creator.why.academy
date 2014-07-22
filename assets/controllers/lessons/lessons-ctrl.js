@@ -430,6 +430,7 @@ angular.module('creator.lessons.controller', [
             DTColumnBuilder.newColumn('type').withTitle('Type'),
             DTColumnBuilder.newColumn('phonetics').withTitle('Phonetics').notSortable(),
             DTColumnBuilder,
+            //Ng-click at Sound column not working after set notSortable()
             DTColumnBuilder.newColumn('created at').withTitle('Created at'),
             DTColumnBuilder.newColumn('command').withTitle('Command').notSortable(),
             DTColumnBuilder.newColumn('status').withTitle('Status'),

@@ -5,6 +5,7 @@
 angular.module('creator.admin.controller', [
     'creator.api.service',
     'creator.courses.service',
+    'creator.audio.service',
     'datatables'
 ])
     .controller('creator.admin.course.detail.ctrl', function(Seo, $scope, $state, course) {
@@ -94,7 +95,7 @@ angular.module('creator.admin.controller', [
     })
 
     .controller('creator.admin.lessons.list.ctrl', function($scope, $state, lessonsSrv, lessons, showActionBar,
-                                                            $DTDefaultOptions,DTOptionsBuilder,DTColumnBuilder) {
+                                                            audioSrv,$DTDefaultOptions,DTOptionsBuilder,DTColumnBuilder) {
         //
         //configure for angular-datatables
         //
@@ -107,6 +108,7 @@ angular.module('creator.admin.controller', [
             DTColumnBuilder.newColumn('type').withTitle('Type'),
             DTColumnBuilder.newColumn('phonetics').withTitle('Phonetics').notSortable(),
             DTColumnBuilder,
+            //Ng-click at Sound column not working after set notSortable()
             DTColumnBuilder.newColumn('created at').withTitle('Created at'),
             DTColumnBuilder.newColumn('status').withTitle('Status'),
             DTColumnBuilder.newColumn('order').withTitle('Order')
@@ -179,5 +181,8 @@ angular.module('creator.admin.controller', [
                     }
                 );
             }
+        };
+        $scope.playAudio = function (audioUrl) {
+            audioSrv.playAudio(audioUrl);
         };
     });
