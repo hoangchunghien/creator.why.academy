@@ -4,7 +4,7 @@
     "dependencies": {
         "jquery": "2.1.1",
         "requirejs": "2.1.13",
-        "angular": "1.2.16",
+        "angular": "1.2.21",
         "angular-cookies": "1.2.16",
         "angular-ui-router": "0.2.10",
         "bootstrap": "3.1.1",
@@ -12,6 +12,8 @@
         "datatables": "1.10.0",
         "typeahead.js": "*",
         "bloodhound": "1.0.2",
-        "angular-datatables":"0.0.1"
+        "angular-datatables":"0.0.3",
+        "datatables-colvis":"1.1.1",
+        "datatables-colreorder":"1.1.2"
     }
 }

@@ -95,7 +95,7 @@ angular.module('creator.admin.controller', [
     })
 
     .controller('creator.admin.lessons.list.ctrl', function($scope, $state, lessonsSrv, lessons, showActionBar,
-                                                            audioSrv,$DTDefaultOptions,DTOptionsBuilder,DTColumnBuilder) {
+                                                            audioSrv,DTOptionsBuilder, DTColumnDefBuilder) {
         //
         //configure for angular-datatables
         //

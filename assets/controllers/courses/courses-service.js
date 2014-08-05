@@ -237,6 +237,5 @@ angular.module('creator.courses.service', [
             }
             return results;
         };
-
         return factory;
     }]);
