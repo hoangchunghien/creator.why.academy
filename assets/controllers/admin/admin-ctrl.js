@@ -15,12 +15,24 @@ angular.module('creator.admin.controller', [
     })
 
     .controller('creator.admin.courses.list.ctrl', function($scope, $state, courses, coursesSrv, showActionBar, showAuthor, showOrder,
-                                                            $DTDefaultOptions,DTOptionsBuilder,DTColumnBuilder) {
+                                                            DTOptionsBuilder, DTColumnDefBuilder) {
         //
         //configure angular-datatables
         //
-        $DTDefaultOptions.setDisplayLength(20);
-        $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
+        $scope.dtOptions = DTOptionsBuilder.newOptions()
+            .withPaginationType('full_numbers')
+            .withDisplayLength(30)
+            .withOption('order', [0, 'desc']);
+        $scope.dtColumnDefs = [
+            DTColumnDefBuilder.newColumnDef(0).notSortable(),
+            DTColumnDefBuilder.newColumnDef(1).notSortable(),
+            DTColumnDefBuilder.newColumnDef(2),
+            DTColumnDefBuilder.newColumnDef(3),
+            DTColumnDefBuilder.newColumnDef(4),
+            DTColumnDefBuilder.newColumnDef(5),
+            DTColumnDefBuilder.newColumnDef(6),
+            DTColumnDefBuilder.newColumnDef(7)
+        ];
 
         //
         $scope.courses = courses;
@@ -99,19 +111,20 @@ angular.module('creator.admin.controller', [
         //
         //configure for angular-datatables
         //
-        $DTDefaultOptions.setDisplayLength(40);
-        $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
-        $scope.dtColumns = [
-            DTColumnBuilder.newColumn('id').withTitle('ID').notSortable(),
-            DTColumnBuilder.newColumn('picture_url').withTitle('Picture').notSortable(),
-            DTColumnBuilder.newColumn('name').withTitle('Name'),
-            DTColumnBuilder.newColumn('type').withTitle('Type'),
-            DTColumnBuilder.newColumn('phonetics').withTitle('Phonetics').notSortable(),
-            DTColumnBuilder,
-            //Ng-click at Sound column not working after set notSortable()
-            DTColumnBuilder.newColumn('created at').withTitle('Created at'),
-            DTColumnBuilder.newColumn('status').withTitle('Status'),
-            DTColumnBuilder.newColumn('order').withTitle('Order')
+        $scope.dtOptions = DTOptionsBuilder.newOptions()
+            .withPaginationType('full_numbers')
+            .withDisplayLength(30)
+            .withOption('order', [6, 'desc']);
+        $scope.dtColumnDefs = [
+            DTColumnDefBuilder.newColumnDef(0).notSortable(),
+            DTColumnDefBuilder.newColumnDef(1).notSortable(),
+            DTColumnDefBuilder.newColumnDef(2),
+            DTColumnDefBuilder.newColumnDef(3),
+            DTColumnDefBuilder.newColumnDef(4).notSortable(),
+            DTColumnDefBuilder.newColumnDef(5).notSortable(),
+            DTColumnDefBuilder.newColumnDef(6),
+            DTColumnDefBuilder.newColumnDef(7),
+            DTColumnDefBuilder.newColumnDef(8)
         ];
         //
 
