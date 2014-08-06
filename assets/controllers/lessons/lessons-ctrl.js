@@ -435,7 +435,7 @@ angular.module('creator.lessons.controller', [
             DTColumnDefBuilder.newColumnDef(6),
             DTColumnDefBuilder.newColumnDef(7),
             DTColumnDefBuilder.newColumnDef(8),
-            DTColumnDefBuilder.newColumnDef(9),
+            DTColumnDefBuilder.newColumnDef(9)
         ];
 
         //
